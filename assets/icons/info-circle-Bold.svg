@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="info-circle-Bold" transform="translate(0 0)">
+    <rect id="Path" width="16" height="16" transform="translate(0 0)" fill="rgba(255,255,255,0)"/>
+    <path id="info-circle-Bold_1_" d="M355.667,1820a6.667,6.667,0,1,0,6.667,6.667A6.674,6.674,0,0,0,355.667,1820Zm0,12a5.333,5.333,0,1,1,5.333-5.333A5.34,5.34,0,0,1,355.667,1832Zm.667-8a.667.667,0,1,1-.667-.667A.667.667,0,0,1,356.333,1824Zm0,2.667v2.667a.667.667,0,0,1-1.333,0v-2.667a.667.667,0,1,1,1.333,0Z" transform="translate(-347.667 -1818.666)" fill="#605454"/>
+  </g>
+</svg>

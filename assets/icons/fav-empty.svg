@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="145.055" height="118.352" viewBox="0 0 145.055 118.352">
+  <g id="fav-empty" transform="translate(-138.75 -275.684)">
+    <path id="Background" d="M126.19,39.356a4.373,4.373,0,1,1,4.373,4.373A4.373,4.373,0,0,1,126.19,39.356ZM87.459,43.729a4.4,4.4,0,0,1-.937-.1,4.4,4.4,0,0,1-.937.1H28.736a4.373,4.373,0,0,1,0-8.746H4.373a4.373,4.373,0,1,1,0-8.746H29.361a4.373,4.373,0,1,0,0-8.746H13.743a4.373,4.373,0,0,1,0-8.746H38.732a4.373,4.373,0,0,1,0-8.746H74.34a4.373,4.373,0,0,1,0,8.746h39.981a4.373,4.373,0,1,1,0,8.746h13.744a4.373,4.373,0,0,1,0,8.746H116.2a4.373,4.373,0,1,0,0,8.746h3.748a4.373,4.373,0,0,1,0,8.746Z" transform="translate(148.869 319.494)" fill="#f2f3f4"/>
+    <g id="favorite-svgrepo-com_2_" data-name="favorite-svgrepo-com (2)" transform="translate(171.746 297.693)">
+      <path id="Path_2497" data-name="Path 2497" d="M58.985,73.594a5,5,0,0,1-2.794-.856L39.384,61.473a.5.5,0,0,0-.563,0L22.012,72.738a5,5,0,0,1-7.615-5.43l5.52-19.467a.518.518,0,0,0-.18-.541L3.83,34.8a5,5,0,0,1,2.906-9.012l20.278-.766a.518.518,0,0,0,.451-.338L34.449,5.687a5,5,0,0,1,9.4,0L50.829,24.68a.518.518,0,0,0,.451.338l20.278.766A5,5,0,0,1,74.464,34.8L58.557,47.3a.5.5,0,0,0-.18.541L63.9,67.308a5.024,5.024,0,0,1-4.912,6.286ZM39.113,56.876a4.979,4.979,0,0,1,2.771.946L58.692,69.088a.5.5,0,0,0,.766-.563l-5.52-19.467a4.979,4.979,0,0,1,1.735-5.295l15.907-12.5a.5.5,0,0,0-.293-.9l-20.278-.766A5,5,0,0,1,46.5,26.3L39.519,7.309a.5.5,0,0,0-.946,0L31.656,26.28a5,5,0,0,1-4.506,3.289l-20.278.766a.5.5,0,0,0-.293.9L22.508,43.763a5,5,0,0,1,1.735,5.295l-5.5,19.467a.473.473,0,0,0,.18.541.451.451,0,0,0,.586,0L36.319,57.8a5,5,0,0,1,2.771-.834Z" transform="translate(1.477 3.01)" fill="#d0d4dc"/>
+      <rect id="Rectangle_1936" data-name="Rectangle 1936" width="80.312" height="80.312" transform="translate(0)" fill="rgba(0,0,0,0)"/>
+    </g>
+    <g id="bling" transform="translate(140 378.004)">
+      <path id="Line" d="M.5,0V4.434" transform="translate(6.891)" fill="none" stroke="#d0d4dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke-dasharray="0 0"/>
+      <path id="Line-2" data-name="Line" d="M.5,0V4.434" transform="translate(6.891 10.347)" fill="none" stroke="#d0d4dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke-dasharray="0 0"/>
+      <path id="Line-3" data-name="Line" d="M0,0V4.434" transform="translate(0 7.391) rotate(-90)" fill="none" stroke="#d0d4dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke-dasharray="0 0"/>
+      <path id="Line-4" data-name="Line" d="M0,0V4.434" transform="translate(10.347 7.391) rotate(-90)" fill="none" stroke="#d0d4dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke-dasharray="0 0"/>
+    </g>
+    <g id="bling-2" data-name="bling" transform="translate(232.563 276.934)">
+      <path id="Line-5" data-name="Line" d="M.5,0V6.228" transform="translate(9.88)" fill="none" stroke="#d0d4dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke-dasharray="0 0"/>
+      <path id="Line-6" data-name="Line" d="M.5,0V6.228" transform="translate(9.88 14.532)" fill="none" stroke="#d0d4dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke-dasharray="0 0"/>
+      <path id="Line-7" data-name="Line" d="M0,0V6.228" transform="translate(0 10.38) rotate(-90)" fill="none" stroke="#d0d4dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke-dasharray="0 0"/>
+      <path id="Line-8" data-name="Line" d="M0,0V6.228" transform="translate(14.532 10.38) rotate(-90)" fill="none" stroke="#d0d4dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke-dasharray="0 0"/>
+    </g>
+  </g>
+</svg>
