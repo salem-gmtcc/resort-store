@@ -18,7 +18,7 @@ class CarouselSliderWidget extends StatelessWidget {
   CarouselSliderWidget({required this.id});
   @override
   Widget build(BuildContext context) {
-    return   BlocProvider(
+    return BlocProvider(
       create: (context) => BannerCubit(
           bannerRepository: instance<BannerRepository>())
         ..getBannerCubit(id!),

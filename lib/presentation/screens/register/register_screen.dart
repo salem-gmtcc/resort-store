@@ -106,10 +106,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           SizedBox(
                             height: 50.h,
                           ),
-                          Image.asset(
-                            "assets/images/name.png",
-                            width: 200.w,
-                            height: 120.h,
+                          Center(
+                            child: Image.asset(
+                              "assets/images/name.png",
+                              width: 200.w,
+                              height: 120.h,
+                            ),
                           ),
                           SizedBox(
                             height: 20.h,
@@ -131,10 +133,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               emailController: _emailController,
                             ),
                           ),
-                          SizedBox(height: 5.h,),
-                          CustomPadding.only(
-                            right: 35.w,
-                            left: 35.w,
+                          SizedBox(height: 1.5.h,),
+                          CustomPadding.symmetric(
+                            horizontal: 15.sp,
+                            vertical: 5.sp,
                             child: Row(
                               children: [
                                 Checkbox(
@@ -152,14 +154,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   AppStrings.iAgreeToTheTermsAndConditions.tr(),
                                   style: mediumTextStyle(
                                       fontSize: 12.sp,
-                                      color: AppColor.primaryLight),
+                                      color: AppColor.white1),
                                 )
                               ],
                             ),
                           ),
                           //TODO: Button Register
                           SizedBox(
-                            height: 30.h,
+                            height: 8.h,
                           ),
                           CustomButton(
                             onPressed: () {
@@ -175,19 +177,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 });
                               }
                             },
-                            color: AppColor.white,
+                            color: AppColor.primaryAmwaj,
                             elevation: 5.0,
-                            width: 250.w,
-                            height: 30.h,
-                            radius: 40.0,
+                            width: 300.w,
+                            height: 40.h,
+                            radius: 8.0,
                             title: AppStrings.signup.tr(),
                             textStyle: boldTextStyle(
-                              color: AppColor.black,
-                              fontSize: 15.0,
+                              color: AppColor.white,
+                              fontSize: 16.0,
                             ),
                             horizontalMargin: 22,
                             verticalPadding: 8,
-                          )
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
                         ],
                       ),
                     ),

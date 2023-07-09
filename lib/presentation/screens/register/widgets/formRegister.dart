@@ -50,9 +50,12 @@ class RegisterForm extends StatelessWidget {
     return Form(
       key: formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(AppStrings.signup.tr(),style: mediumTextStyle(fontSize: 18.sp, color: AppColor.white,height: 0.1)),
+          Text(AppStrings.welcomeBack.tr(),style: mediumTextStyle(fontSize: 18.sp, color: AppColor.white)),
+          SizedBox(height: 15.h,),
           //TODO: firstName
           CustomTextField(
             controller: firstNameController,
@@ -62,10 +65,10 @@ class RegisterForm extends StatelessWidget {
             cursorColor: AppColor.white,
             textStyle: mediumTextStyle(fontSize: 13.sp, color: AppColor.white),
             containerColor:
-                context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
+            context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
             hintText: '',
             labelText: AppStrings.firstName.tr(),
-            height: 35.h,
+            height: 40.h,
             validator: (value) {
               if (value!.isEmpty) {
                 showToast(
@@ -76,11 +79,11 @@ class RegisterForm extends StatelessWidget {
               return null;
             },
             borderColor: AppColor.white,
-            width: 250.w,
-            radius: 10.r,
+            width: 300.w,
+            radius: 8.r,
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
-                borderSide: BorderSide(color: AppColor.primaryLight)),
+                borderSide: BorderSide(color: AppColor.white1)),
             enabled: true,
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
@@ -97,7 +100,7 @@ class RegisterForm extends StatelessWidget {
           ),
           //TODO: lastName
           SizedBox(
-            height: 10.h,
+            height: 15.h,
           ),
           CustomTextField(
             controller: lastNameController,
@@ -107,11 +110,11 @@ class RegisterForm extends StatelessWidget {
             cursorColor: AppColor.white,
             textStyle: mediumTextStyle(fontSize: 13.sp, color: AppColor.white),
             containerColor:
-                context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
+            context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
             hintText: '',
             labelText: AppStrings.lastName.tr(),
-            radius: 10.r,
-            height: 35.h,
+            radius: 8.r,
+            height: 40.h,
             validator: (value) {
               if (value!.isEmpty) {
                 showToast(
@@ -122,7 +125,7 @@ class RegisterForm extends StatelessWidget {
               return null;
             },
             borderColor: AppColor.white,
-            width: 250.w,
+            width: 300.w,
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
                 borderSide: BorderSide(color: AppColor.primaryLight)),
@@ -141,35 +144,33 @@ class RegisterForm extends StatelessWidget {
                 borderSide: BorderSide(color: AppColor.primaryLight)),
           ),
           //TODO: phone field
-          SizedBox(height: 10.h),
+          SizedBox(height: 15.h),
           SizedBox(
-            height: 60.h,
-            width: 250.w,
+            height: 55.h,
+            width: 300.w,
             child: IntlPhoneField(
-              cursorColor: AppColor.primaryLight,
-              dropdownTextStyle:
-                  mediumTextStyle(color: AppColor.primaryLight, fontSize: 18.0),
+              cursorColor: AppColor.white,
+              dropdownTextStyle: mediumTextStyle(color: AppColor.white, fontSize: 16.0),
               validator: (val) {
                 if (val!.number.isEmpty) {
                   showToast(
                       text: "${AppStrings.pleaseEnter.tr()}"
-                          " ${AppStrings.phoneNumber.tr()}",
+                          "${AppStrings.phoneNumber.tr()}",
                       color: ToastColors.WARNING);
                 }
                 return;
               },
               controller: phoneController,
               enabled: true,
-              style:
-                  mediumTextStyle(fontSize: 18.0, color: AppColor.primaryLight,height: 1.2                                                .h),
+              style: mediumTextStyle(fontSize: 14.sp, color: AppColor.white,height: 0.6.h                                             .h),
               decoration: InputDecoration(
-
+                fillColor:  context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
                 filled: true,
+                errorStyle: mediumTextStyle(fontSize: 10.sp, color:AppColor.white,height: 0.1),
                 focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
                     borderSide: BorderSide(color: AppColor.primaryLight)),
-                hintStyle: mediumTextStyle(
-                    fontSize: 18.0, color: AppColor.primaryLight),
+                hintStyle: mediumTextStyle(fontSize: 16.sp, color: AppColor.primaryLight),
                 focusColor: AppColor.white,
                 errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
@@ -208,11 +209,11 @@ class RegisterForm extends StatelessWidget {
             cursorColor: AppColor.white,
             textStyle: mediumTextStyle(fontSize: 13.sp, color: AppColor.white),
             containerColor:
-                context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
-            radius: 10.r,
+            context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
+            radius: 8.r,
             hintText: '',
             labelText: AppStrings.email.tr(),
-            height: 35.h,
+            height: 40.h,
             validator: (value) {
               if (value!.isEmpty) {
                 showToast(
@@ -223,7 +224,7 @@ class RegisterForm extends StatelessWidget {
               return null;
             },
             borderColor: AppColor.white,
-            width: 250.w,
+            width: 300.w,
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
                 borderSide: BorderSide(color: AppColor.primaryLight)),
@@ -242,7 +243,7 @@ class RegisterForm extends StatelessWidget {
                 borderSide: BorderSide(color: AppColor.primaryLight)),
           ),
           SizedBox(
-            height: 10.h,
+            height: 15.h,
           ),
           //TODO: password field
           CustomTextField(
@@ -253,9 +254,9 @@ class RegisterForm extends StatelessWidget {
             cursorColor: AppColor.white,
             textStyle: mediumTextStyle(fontSize: 13.sp, color: AppColor.white),
             containerColor:
-                context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
+            context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
             hintText: '',
-            radius: 10.r,
+            radius: 8.r,
             isSecure: context.read<RegisterCubit>().isSecure,
             suffixIcon: CustomPadding.symmetric(
               horizontal: 10,
@@ -265,12 +266,12 @@ class RegisterForm extends StatelessWidget {
                   },
                   icon: context.read<RegisterCubit>().isSecure
                       ? Icon(Icons.visibility_off,
-                          color: AppColor.primaryLight, size: 20.sp)
+                      color: AppColor.primaryLight, size: 20.sp)
                       : Icon(Icons.visibility,
-                          color: AppColor.primaryLight, size: 20.sp)),
+                      color: AppColor.primaryLight, size: 20.sp)),
             ),
             labelText: AppStrings.password.tr(),
-            height: 35.h,
+            height: 40.h,
             validator: (value) {
               if (value!.isEmpty) {
                 showToast(
@@ -281,7 +282,7 @@ class RegisterForm extends StatelessWidget {
               return null;
             },
             borderColor: AppColor.white,
-            width: 250.w,
+            width: 300.w,
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
                 borderSide: BorderSide(color: AppColor.primaryLight)),
@@ -308,12 +309,12 @@ class RegisterForm extends StatelessWidget {
             cursorColor: AppColor.white,
             textStyle: mediumTextStyle(fontSize: 13.sp, color: AppColor.white),
             containerColor:
-                context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
+            context.read<ThemeDataCubit>().recolor ?? AppColor.primaryAmwaj,
             hintText: '',
             isSecure: context.read<RegisterCubit>().confirmPass,
-            radius: 10.r,
+            radius: 8.r,
             labelText: AppStrings.confirmPassword.tr(),
-            height: 35.h,
+            height: 40.h,
             suffixIcon: CustomPadding.symmetric(
               horizontal: 10,
               child: IconButton(
@@ -322,9 +323,9 @@ class RegisterForm extends StatelessWidget {
                   },
                   icon: context.read<RegisterCubit>().confirmPass
                       ? Icon(Icons.visibility_off,
-                          color: AppColor.primaryLight, size: 20.sp)
+                      color: AppColor.primaryLight, size: 20.sp)
                       : Icon(Icons.visibility,
-                          color: AppColor.primaryLight, size: 20.sp)),
+                      color: AppColor.primaryLight, size: 20.sp)),
             ),
             validator: (value) {
               if (value!.isEmpty) {
@@ -336,7 +337,7 @@ class RegisterForm extends StatelessWidget {
               return null;
             },
             borderColor: AppColor.white,
-            width: 250.w,
+            width: 300.w,
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
                 borderSide: BorderSide(color: AppColor.primaryLight)),

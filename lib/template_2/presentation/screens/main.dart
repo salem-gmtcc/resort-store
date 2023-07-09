@@ -49,7 +49,7 @@ class _MainNewTemplateState extends State<MainNewTemplate> {
               right: 0,
               height: 45.h,
               child: Container(
-                color: AppColor.spareTKTemplate,
+                color: AppColor.primaryAmwaj,
               ),
             ),
             ...items
@@ -87,7 +87,7 @@ class _MainNewTemplateState extends State<MainNewTemplate> {
                 onPressed: () {
                   print("-------------------------------||");
                 },
-                backgroundColor: AppColor.spareTKTemplate,
+                backgroundColor: AppColor.primaryAmwaj,
                 child: SvgPicture.asset(
                   _selectedItem.icon,
                   width: 22,

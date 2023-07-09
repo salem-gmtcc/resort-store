@@ -282,7 +282,7 @@ class RouteManger {
                       create: (context) => OrderCubit(
                           confirmOrderRepository:
                               instance<ConfirmOrderRepository>())),
-                ], child: const HomeTemplateScreen()));
+                ], child:  HomeTemplateScreen()));
 
       //TODO: Details Template Screen
       case RouteConstants.detailsTemplateScreen:
@@ -303,7 +303,8 @@ class RouteManger {
       //TODO : Main Template Screen
       case RouteConstants.mainNewTemplate:
         return MaterialPageRoute(
-            builder: (context) => MultiBlocProvider(providers: [
+            builder: (context) => MultiBlocProvider(
+                providers: [
                   BlocProvider(
                       create: (context) => LogOutCubit(
                           logoutRepository: instance<LogoutRepository>())),

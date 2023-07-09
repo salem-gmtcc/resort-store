@@ -62,69 +62,73 @@ class _HomeScreenState extends State<HomeScreen> {
               //TODO: // TODO: ITEM CARD
               Padding(
                 padding: const EdgeInsets.only(right: 5, left: 5),
-                child: Row(
-                  children: [
-                    SizedBox(
-                        width: 50.w,
-                        height: 30.h,
-                        child: InkWell(
-                            onTap: () {
-                              AppRouter.to(context, RouteConstants.allCategory);
-                            },
-                            child: ItemCardHeader(
-                                color: AppColor.primaryLight,
-                                title: AppStrings.all.tr()))),
-                    SizedBox(width: 10.w,),
-                    BlocProvider(
-                      create: (context) => CategoriesCubit(
-                          categoriesRepository:
-                              instance<CategoriesRepository>())
-                        ..getMainCategories(),
-                      child: BlocBuilder<CategoriesCubit, CategoriesStates>(
-                        builder: (context, state) {
-                          if (state is MainCategoriesSuccessState) {
-                            return SizedBox(
-                               height: 50.h,
-                              width: 260.w,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: state.mainCategories.length,
-                                physics: const BouncingScrollPhysics(),
-                                itemBuilder: (context, i) {
-                                  return InkWell(
-                                    onTap: () {
-                                      print(
-                                          "***************** enter  home ${state.mainCategories[i].subCategories}");
-                                      print("/****");
-                                      AppRouter.to(
-                                          context, RouteConstants.subCategory,
-                                          arguments: SubCategoryScreen(
-                                            id: state
-                                                .mainCategories[i].categoryId
-                                                .toString(),
-                                            name: state.mainCategories[i].name,
-                                          ));
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: ItemCardHeader(
-                                        color: AppColor.primaryLight
-                                            .withOpacity(0.5),
-                                        title: state.mainCategories[i].name,
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                          width: 50.w,
+                          height: 30.h,
+                          child: InkWell(
+                              onTap: () {
+                                AppRouter.to(context, RouteConstants.allCategory);
+                              },
+                              child: ItemCardHeader(
+                                  color: AppColor.primaryLight,
+                                  title: AppStrings.all.tr()))),
+                      SizedBox(width: 10.w,),
+                      BlocProvider(
+                        create: (context) => CategoriesCubit(
+                            categoriesRepository:
+                                instance<CategoriesRepository>())
+                          ..getMainCategories(),
+                        child: BlocBuilder<CategoriesCubit, CategoriesStates>(
+                          builder: (context, state) {
+                            if (state is MainCategoriesSuccessState) {
+                              return SizedBox(
+                                 height: 40.h,
+                                width: 300.w,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.mainCategories.length,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemBuilder: (context, i) {
+                                    return InkWell(
+                                      onTap: () {
+                                        print(
+                                            "***************** enter  home ${state.mainCategories[i].subCategories}");
+                                        print("/****");
+                                        AppRouter.to(
+                                            context, RouteConstants.subCategory,
+                                            arguments: SubCategoryScreen(
+                                              id: state
+                                                  .mainCategories[i].categoryId
+                                                  .toString(),
+                                              name: state.mainCategories[i].name,
+                                            ));
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(3.0),
+                                        child: ItemCardHeader(
+                                          color: AppColor.primaryLight
+                                              .withOpacity(0.5),
+                                          title: state.mainCategories[i].name,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          } else if (state is CategoriesLoadingState) {
-                            const CustomCategoriesMainShimmer();
-                          }
-                          return const CustomCategoriesMainShimmer();
-                        },
+                                    );
+                                  },
+                                ),
+                              );
+                            } else if (state is CategoriesLoadingState) {
+                              const CustomCategoriesMainShimmer();
+                            }
+                            return const CustomCategoriesMainShimmer();
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               //TODO: Carsoul Slider

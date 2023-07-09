@@ -12,7 +12,6 @@ import '../../../../business_logic/cart/cubit.dart';
 import '../../../../business_logic/cart/state.dart';
 import '../../../../business_logic/change_theme/cubit.dart';
 import '../../../../business_logic/coupon/coupon_cubit.dart';
-import '../../../../business_logic/main_template/main_template_cubit.dart';
 import '../../../../business_logic/order/cubit.dart';
 import '../../../../core/constants/route_constant.dart';
 import '../../../../core/helpers/app_router.dart';
@@ -26,6 +25,7 @@ import '../../../../presentation/widgets/custom_toast.dart';
 import '../../../../presentation/widgets/dialog/custom_alert_dailog.dart';
 import '../../../../presentation/widgets/dialog/custom_awesome_dialog.dart';
 import '../../../../presentation/widgets/shimmer/shimmer_products/custom_product_shimmer.dart';
+
 
 class CartTemplateScreen extends StatelessWidget {
   CartTemplateScreen({Key? key}) : super(key: key);
@@ -126,236 +126,249 @@ class CartTemplateScreen extends StatelessWidget {
                       ),
                     ],
                   ));
-            } else if (state is SuccessGetCartState) {
+            }
+
+            else if(state is SuccessUpdateItemCart){
+              context.read<CartCubit>().getCartCubit();
+            }
+
+            else if (state is SuccessGetCartState) {
               return Center(
-        child:  SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-                  children: [
-                    Container(
-                      height: 450.h,
-                      width: 350.w,
-                      child: ListView.builder(
-                          itemCount: state.cartModel.cartDataModel!.cartListProduct!.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: 3.h, left: 3.w, top: 3.h, right: 3.w),
-                                child: NewTemplateCartItem(
-                                  productKey: state.cartModel.cartDataModel!
-                                      .cartListProduct![index].key,
-                                  title: state.cartModel.cartDataModel!
-                                      .cartListProduct![index].name
-                                      .toString(),
-                                  image: state.cartModel.cartDataModel!
-                                      .cartListProduct![index].thumb
-                                      .toString(),
-                                  price: state.cartModel.cartDataModel!
-                                      .cartListProduct![index].price
-                                      .toString(),
-                                  quantity: state.cartModel.cartDataModel!
-                                      .cartListProduct![index].quantity
-                                      .toString(),
-                                  taxAmount:state.cartModel.cartDataModel!
-                                      .cartListProduct![index].taxAmountFormated
-                                      .toString() ,
-                                  totalRaw:state.cartModel.cartDataModel!
-                                      .cartListProduct![index].totalRaw,
-                                ));
-                          }),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Container(
-                      height: 70.h,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          //TODO : Check Out Button
-                          InkWell(
-                            onTap:(){
-                              print("--------------------$email");
-                              if (email == null) {
-                                AppRouter.to(context, RouteConstants.login);
-                              } else {
+                child:  SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 450.h,
+                        width: 350.w,
+                        child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: state.cartModel.cartDataModel!.cartListProduct!.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: 3.h, left: 3.w, top: 3.h, right: 3.w),
+                                  child: NewTemplateCartItem(
+                                    productKey: state.cartModel.cartDataModel!
+                                        .cartListProduct![index].key,
+                                    title: state.cartModel.cartDataModel!
+                                        .cartListProduct![index].name
+                                        .toString(),
+                                    image: state.cartModel.cartDataModel!
+                                        .cartListProduct![index].thumb
+                                        .toString(),
+                                    price: state.cartModel.cartDataModel!
+                                        .cartListProduct![index].price
+                                        .toString(),
+                                    quantity: state.cartModel.cartDataModel!
+                                        .cartListProduct![index].quantity
+                                        .toString(),
+                                    taxAmount:state.cartModel.cartDataModel!
+                                        .cartListProduct![index].taxAmountFormated
+                                        .toString() ,
+                                    totalRaw:state.cartModel.cartDataModel!
+                                        .cartListProduct![index].totalRaw,
+                                  ));
+                            }),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Container(
+                        height: 70.h,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            //TODO : Check Out Button
+                            InkWell(
+                              onTap:(){
+                                print("--------------------$email");
+                                if (email == null) {
+                                  AppRouter.to(context, RouteConstants.login);
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => BlocProvider(
+                                        create: (context) => OrderCubit(
+                                            confirmOrderRepository:
+                                            instance<ConfirmOrderRepository>()),
+                                        child: CustomAlertDialog(
+                                            image: "shopping-basket-Bold.svg",
+                                            title: AppStrings.confirm.tr(),
+                                            widget: CustomCheckOutButton(
+                                              totalPrice: state
+                                                  .cartModel.cartDataModel!.total
+                                                  .toString().substring(1) ,
+                                              price: state
+                                                  .cartModel.cartDataModel!.total
+                                                  .toString()
+                                                  .replaceAll("item(s) - ", "").substring(1),
+                                            )),
+                                      ));
+                                }
+                              },
+                              child: Container(
+                                height: 40.h,
+                                width: 150.w,
+                                decoration: BoxDecoration(
+                                    color: AppColor.primaryAmwaj,
+                                    borderRadius: BorderRadius.circular(20.r)),
+                                child: Padding(
+                                  padding:  EdgeInsets.symmetric(
+                                      horizontal: 5.sp
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        "assets/icons/shopping-basket-Bold.svg",
+                                        height: 20.h,
+                                        width: 20.w,
+                                        color: AppColor.white,
+                                      ),
+                                      Text(
+                                        AppStrings.goToCheckOut.tr(),
+                                        style: mediumTextStyle(
+                                            height: 0.0.h,
+                                            fontSize: 10.sp, color: AppColor.white),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            //TODO: ADD COUPON
+                            InkWell(
+                              onTap: (){
                                 showDialog(
                                     context: context,
                                     builder: (context) => BlocProvider(
-                                      create: (context) => OrderCubit(
-                                          confirmOrderRepository:
-                                          instance<ConfirmOrderRepository>()),
-                                      child: CustomAlertDialog(
-                                          image: "shopping-basket-Bold.svg",
-                                          title: AppStrings.confirm.tr(),
-                                          widget: CustomCheckOutButton(
-                                            totalPrice: state
-                                                .cartModel.cartDataModel!.total
-                                                .toString().substring(1) ,
-                                            price: state
-                                                .cartModel.cartDataModel!.total
-                                                .toString()
-                                                .replaceAll("item(s) - ", "").substring(1),
-                                          )),
-                                    ));
-                              }
-                            },
-                            child: Container(
-                              height: 40.h,
-                              width: 150.w,
-                              decoration: BoxDecoration(
-                                  color: AppColor.spareTKTemplate,
-                                  borderRadius: BorderRadius.circular(20.r)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      "assets/icons/shopping-basket-Bold.svg",
-                                      height: 15.h,
-                                      width: 15.w,
-                                      color: AppColor.white,
-                                    ),
-                                    Text(
-                                      AppStrings.goToCheckOut.tr(),
-                                      style: mediumTextStyle(
-                                          fontSize: 13.sp, color: AppColor.white),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          //TODO: ADD COUPON
-                          InkWell(
-                            onTap: (){
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => BlocProvider(
-                                    create: (context) => CouponCubit(
-                                        cartRepository: instance<CartRepository>()),
-                                    child: BlocBuilder<CouponCubit,   CouponState>(
-                                      builder: (context, state) {
-                                        if (state is CouponSuccessState) {
-                                          showToast(
-                                              text: "Add Coupon Code Successfully",
-                                              color: ToastColors.SUCCESS)
-                                              .then((value) {
-                                            AppRouter.back(context);
-                                          });
-                                        } else if (state is CouponErrorState) {
-                                          print("*********************-------________----- ${state.error.toString()}");
-                                          showToast(
-                                              text: state.error.toString(),
-                                              color: ToastColors.ERROR);
-                                        }
-                                        return SizedBox(
-                                          height: 100.h,
-                                          width: 200.w,
-                                          child:   CustomAlertDialog(
-                                            image: "coupon-Bold.svg",
-                                            title: AppStrings.useCouponCode.tr(),
-                                            widget:  Column(
-                                              children: [
-                                                SizedBox(
-                                                  child: TextFormField(
-                                                    decoration: InputDecoration(
-                                                      focusedBorder: OutlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color:
-                                                              AppColor.primaryAmwaj)),
-                                                      border: OutlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color:
-                                                              AppColor.primaryAmwaj)),
-                                                      enabledBorder: OutlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color:
-                                                              AppColor.primaryAmwaj)),
-                                                      disabledBorder: OutlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color:
-                                                              AppColor.primaryAmwaj)),
+                                      create: (context) => CouponCubit(
+                                          cartRepository: instance<CartRepository>()),
+                                      child: BlocBuilder<CouponCubit,   CouponState>(
+                                        builder: (context, state) {
+                                          if (state is CouponSuccessState) {
+                                            showToast(
+                                                text: "Add Coupon Code Successfully",
+                                                color: ToastColors.SUCCESS)
+                                                .then((value) {
+                                              AppRouter.back(context);
+                                            });
+                                          } else if (state is CouponErrorState) {
+                                            print("*********************-------________----- ${state.error.toString()}");
+                                            showToast(
+                                                text: state.error.toString(),
+                                                color: ToastColors.ERROR);
+                                          }
+                                          return SizedBox(
+                                            height: 100.h,
+                                            width: 200.w,
+                                            child:   CustomAlertDialog(
+                                              image: "coupon-Bold.svg",
+                                              title: AppStrings.useCouponCode.tr(),
+                                              widget:  Column(
+                                                children: [
+                                                  SizedBox(
+                                                    child: TextFormField(
+                                                      decoration: InputDecoration(
+                                                        focusedBorder: OutlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color:
+                                                                AppColor.spareTKTemplate)),
+                                                        border: OutlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color:
+                                                                AppColor.primaryAmwaj)),
+                                                        enabledBorder: OutlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color:
+                                                                AppColor.primaryAmwaj)),
+                                                        disabledBorder: OutlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color:
+                                                                AppColor.primaryAmwaj)),
+                                                      ),
+                                                      controller: _coupon,
+                                                      validator: (value) {
+                                                        if (value!.isEmpty) {
+                                                          return AppStrings.required.tr();
+                                                        }
+                                                        return null;
+                                                      },
                                                     ),
-                                                    controller: _coupon,
-                                                    validator: (value) {
-                                                      if (value!.isEmpty) {
-                                                        return AppStrings.required.tr();
-                                                      }
-                                                      return null;
-                                                    },
+                                                    width: 180.w,
+                                                    height: 30.h,
                                                   ),
-                                                  width: 180.w,
-                                                  height: 30.h,
-                                                ),
-                                                SizedBox(
-                                                  height: 15.h,
-                                                ),
-                                                CustomButton(
-                                                  textStyle: mediumTextStyle(
-                                                      fontSize: 10,
-                                                      color: AppColor.white),
-                                                  color: context
-                                                      .read<ThemeDataCubit>()
-                                                      .recolor ??
-                                                      AppColor.primaryAmwaj,
-                                                  radius: 10.r,
-                                                  title: AppStrings.send.tr(),
-                                                  onPressed: () {
-                                                    context
-                                                        .read<CouponCubit>()
-                                                        .getCoupon(_coupon.text);
-                                                  },
-                                                  height: 30.h,
-                                                  width: 80.w,
-                                                ),
-                                                if(state is CouponLoadingState)
-                                                  CircularProgressIndicator(color: AppColor.primaryAmwaj,)
-                                              ],
-                                            ),),
-                                        );
-                                      },
-                                    ),
-                                  ));
-                            },
-                            child: Container(
-                              height: 40.h,
-                              width: 150.w,
-                              decoration: BoxDecoration(
-                                  color: AppColor.spareTKTemplate,
-                                  borderRadius: BorderRadius.circular(20.r)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      "assets/icons/coupon-Bold.svg",
-                                      height: 15.h,
-                                      width: 15.w,
-                                      color: AppColor.white,
-                                    ),
-                                    Text(
-                                      AppStrings.useCouponCode.tr(),
-                                      style: mediumTextStyle(
-                                          fontSize: 13.sp, color: AppColor.white),
-                                    )
-                                  ],
+                                                  SizedBox(
+                                                    height: 15.h,
+                                                  ),
+                                                  CustomButton(
+                                                    textStyle: mediumTextStyle(
+                                                        fontSize: 10,
+                                                        color: AppColor.white),
+                                                    color: context
+                                                        .read<ThemeDataCubit>()
+                                                        .recolor ??
+                                                        AppColor.primaryAmwaj,
+                                                    radius: 10.r,
+                                                    title: AppStrings.send.tr(),
+                                                    onPressed: () {
+                                                      context
+                                                          .read<CouponCubit>()
+                                                          .getCoupon(_coupon.text);
+                                                    },
+                                                    height: 30.h,
+                                                    width: 80.w,
+                                                  ),
+                                                  if(state is CouponLoadingState)
+                                                    CircularProgressIndicator(color: AppColor.primaryAmwaj,)
+                                                ],
+                                              ),),
+                                          );
+                                        },
+                                      ),
+                                    ));
+                              },
+                              child: Container(
+                                height: 40.h,
+                                width: 150.w,
+                                decoration: BoxDecoration(
+                                    color: AppColor.primaryAmwaj,
+                                    borderRadius: BorderRadius.circular(20.r)),
+                                child: Padding(
+                                  padding:  EdgeInsets.symmetric(
+                                      horizontal: 5.sp
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        "assets/icons/coupon-Bold.svg",
+                                        height: 15.h,
+                                        width: 15.w,
+                                        color: AppColor.white,
+                                      ),
+                                      Text(
+                                        AppStrings.useCouponCode.tr(),
+                                        style: mediumTextStyle(
+                                            height: 0.0.h,
+                                            fontSize: 10.sp, color: AppColor.white),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-            ),
-      );
+              );
             } else if (state is ErrorCartState) {
               print("eeee eee ${state.error.toString()}");
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {

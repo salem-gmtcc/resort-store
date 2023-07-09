@@ -26,7 +26,7 @@ class CustomAlertDialog extends StatelessWidget {
           Container(
               height: 30.h,
               width: 80.w,
-              child: SvgPicture.asset("assets/icons/${image}")),
+              child: SvgPicture.asset("assets/icons/${image}",color: AppColor.primaryAmwaj,)),
           Text(title,
               textAlign: TextAlign.center,style: mediumTextStyle(
               fontSize: 13.sp, color: AppColor.primaryAmwaj

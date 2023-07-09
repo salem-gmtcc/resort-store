@@ -69,6 +69,19 @@ class CartRepository {
     }
   }
 
+
+
+  //TODO : Update Item Cart
+  Future<dynamic> updateCartRepository(Map<String,dynamic> body ) async{
+    print("-------------- ****");
+    final data = await cartService.updateItemCartService(body);
+    if(data != null){
+      return Future.value(GenericModel.fromJson(data));
+    }else {
+      return Future.value(null);
+    }
+  }
+
   //TODO: get Coupon
   Future<dynamic> getCouponRepository(String coupon) async {
     final data = await cartService.couponService(coupon);

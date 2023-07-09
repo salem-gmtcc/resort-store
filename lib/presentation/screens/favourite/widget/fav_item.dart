@@ -34,8 +34,8 @@ class FavItemWidget extends StatelessWidget {
               children: [
                 Center(child: Image.network(image!,height: 50.h,width: 50.w,)),
                 CustomPadding.symmetric(
-                  horizontal: 8.w,
-                  vertical: 5.h,
+                  horizontal: 8.sp,
+                  vertical: 5.sp,
                   child: Container(
                       height: 20.h,
                       width: 20.w,
@@ -58,12 +58,15 @@ class FavItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name!,
-                  // maxLines: 1,
-                  style:
-                  textStyleCustom(
-                    fontSize: 10.sp,
+                Container(
+                  width:100.w,
+                  child: Text(
+                    name!,
+                    overflow: TextOverflow.ellipsis,
+                    style:
+                    mediumTextStyle(
+                      fontSize: 15.sp, color: AppColor.white,
+                    ),
                   ),
                 ),
                 Text(
@@ -84,21 +87,21 @@ class FavItemWidget extends StatelessWidget {
                       width: 5.w,
                     ),
                     Text(
-                      "8.5",
-                      style: textStyleCustom(
-                        fontSize: 10.sp,
-                        fontColor:Colors.white,
-                      )
+                        "",
+                        style: textStyleCustom(
+                          fontSize: 10.sp,
+                          fontColor:Colors.white,
+                        )
                     ),
                     SizedBox(
                       width: 10.w,
                     ),
                     Text(
-                      "||",
-                      style: textStyleCustom(
-                        fontSize: 8.sp,
-                        fontColor:AppColor.white,
-                      )
+                        "||",
+                        style: textStyleCustom(
+                          fontSize: 8.sp,
+                          fontColor:AppColor.white,
+                        )
                     ),
                     SizedBox(
                       width: 10.w,

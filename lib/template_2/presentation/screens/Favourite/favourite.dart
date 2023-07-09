@@ -35,16 +35,7 @@ class FavouriteTemplateScreen extends StatelessWidget {
         appBar: AppBar(
           elevation: 8.0,
           backgroundColor: AppColor.white,
-          leading: InkWell(
-            onTap: (){
-              // AppRouter.back(context);
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: AppColor.black,
-              size: 20.0.sp,
-            ),
-          ),
+
           title: Text(AppStrings.favourite.tr(),
               style: mediumTextStyle(fontSize: 15.sp, color: AppColor.black)),
           centerTitle: true,
@@ -105,7 +96,7 @@ class FavouriteTemplateScreen extends StatelessWidget {
                           width: 180.w,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
-                            color: AppColor.spareTKTemplate,
+                            color: AppColor.primaryAmwaj,
                           ),
                           child: Center(
                             child: Text(AppStrings.chooseProduct.tr(),

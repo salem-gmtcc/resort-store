@@ -33,7 +33,7 @@ class NewTemplateCartItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.r),
         color: AppColor.white,
       ),
-      width: 220.w,
+      width: 200.w,
       height: 100.h,
       child: Padding(
         padding: EdgeInsets.only(right: 5.sp, left: 5.sp),
@@ -79,20 +79,25 @@ class NewTemplateCartItem extends StatelessWidget {
                       SizedBox(
                         height: 12.h,
                       ),
-                      Text(title!,
-                          style: mediumTextStyle(
-                              fontSize: 12.sp,
-                              color: AppColor.black,
-                              height: 0.5.h)),
+                      Container(
+                        width: 150.w,
+
+                        child: Text(title!,
+                            overflow: TextOverflow.ellipsis,
+                            style: mediumTextStyle(
+                                fontSize: 15.sp,
+                                color: AppColor.black,
+                                height: 0.5.h)),
+                      ),
                       Text("${AppStrings.price.tr()}: ${price!}",
                           style: mediumTextStyle(
                               fontSize: 10.sp,
-                              color: AppColor.spareTKTemplate,
+                              color: AppColor.primaryAmwaj,
                               height: 1.h)),
                       Text("${AppStrings.tax.tr()} $taxAmount",
                           style: mediumTextStyle(
                               fontSize: 10.sp,
-                              color: AppColor.spareTKTemplate,
+                              color: AppColor.primaryAmwaj,
                               height: 1.h)),
                       SizedBox(
                         height: 10.h,
@@ -126,7 +131,7 @@ class NewTemplateCartItem extends StatelessWidget {
                                 return Text(qty.toString(),
                                     style: mediumTextStyle(
                                         fontSize: 12.0,
-                                        color: AppColor.spareTKTemplate));
+                                        color: AppColor.primaryAmwaj));
                               }),
                               Container(
                                   height: 15.h,
@@ -174,7 +179,7 @@ class NewTemplateCartItem extends StatelessWidget {
                     },
                     icon: Icon(
                       Icons.delete_outline,
-                      color: AppColor.spareTKTemplate,
+                      color: AppColor.primaryAmwaj,
                     ))
               ],
             )

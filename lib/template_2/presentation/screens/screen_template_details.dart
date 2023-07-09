@@ -34,6 +34,7 @@ import '../../../presentation/widgets/shimmer/shimmer_products/custom_product_de
 import '../../../presentation/widgets/shimmer/shimmer_products/custom_product_main_shimmer.dart';
 
 
+
 class DetailsTemplateScreen extends StatelessWidget {
   int? id;
 
@@ -101,7 +102,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(3.r),
-                                        color: AppColor.spareTKTemplate,
+                                        color: AppColor.primaryAmwaj,
                                       ),
                                       child: Center(
                                           child: Text("10%",
@@ -110,7 +111,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                                                   color: AppColor.white))),
                                     ),
                               Container(
-                                width: 85.w,
+                                width: 100.w,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -261,7 +262,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                                             .productDataModel!.name
                                             .toString(),
                                         style: TextStyle(
-                                          color: AppColor.spareTKTemplate,
+                                          color: AppColor.primaryAmwaj,
                                           fontSize: 13.sp,
                                         ),
                                       ),
@@ -304,13 +305,13 @@ class DetailsTemplateScreen extends StatelessWidget {
                                                 style: boldTextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColor
-                                                        .spareTKTemplate)),
+                                                        .primaryAmwaj)),
                                             Text(
                                                 "${AppStrings.tax.tr()}  ${state.productDetailsModel.productDataModel!.taxAmount}",
                                                 style: mediumTextStyle(
                                                     fontSize: 8.sp,
                                                     color: AppColor
-                                                        .spareTKTemplate)),
+                                                        .primaryAmwaj)),
                                             SizedBox(
                                               width: 5.w,
                                             ),
@@ -349,7 +350,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                               "${AppStrings.productDetails.tr()} :",
                               style: mediumTextStyle(
                                   fontSize: 12.sp,
-                                  color: AppColor.spareTKTemplate),
+                                  color: AppColor.primaryAmwaj),
                             ),
                           ),
                           //TODO : Text PRODUCTS DEATAILS
@@ -374,7 +375,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                           //     "${AppStrings.specification.tr()} :",
                           //     style: mediumTextStyle(
                           //         fontSize: 12.sp,
-                          //         color: AppColor.spareTKTemplate),
+                          //         color: AppColor.primaryAmwaj),
                           //   ),
                           // ),
                         ],
@@ -469,7 +470,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                       height: 40.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(35.r),
-                          color: AppColor.spareTKTemplate),
+                          color: AppColor.primaryAmwaj),
                       child: MultiBlocProvider(
                         providers: [
                           BlocProvider(
@@ -493,8 +494,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                                     DialogType.success);
                               });
                             } else if (state is ErrorCartState) {
-                              WidgetsBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
+                              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                                 customAwesomeDialog(context,
                                     state.error.toString(), DialogType.error);
                               });
@@ -506,7 +506,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                                   width: 400.w,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      color: AppColor.spareTKTemplate),
+                                      color: AppColor.primaryAmwaj),
                                   child: CustomPadding.symmetric(
                                     horizontal: 3.w,
                                     child: Row(
@@ -516,18 +516,14 @@ class DetailsTemplateScreen extends StatelessWidget {
                                           width: 95.w,
                                           height: 30.h,
                                           decoration: BoxDecoration(
-                                            color: AppColor.spareTKTemplate,
-                                            borderRadius:
-                                                BorderRadius.circular(5.r),
+                                            color: AppColor.primaryAmwaj,
+                                            borderRadius: BorderRadius.circular(5.r),
                                           ),
                                           child: CustomPadding.symmetric(
                                             horizontal: 5.sp,
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
                                                 Container(
                                                     height: 20.h,
@@ -546,7 +542,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                                                         child: Icon(Icons.add,
                                                             size: 15.sp,
                                                             color: AppColor
-                                                                .spareTKTemplate))),
+                                                                .primaryAmwaj))),
                                                 BlocBuilder<CartCubit,
                                                         CartStates>(
                                                     builder: (context, state) {
@@ -579,7 +575,7 @@ class DetailsTemplateScreen extends StatelessWidget {
                                                             Icons.remove,
                                                             size: 15.sp,
                                                             color: AppColor
-                                                                .spareTKTemplate))),
+                                                                .primaryAmwaj))),
                                               ],
                                             ),
                                           ),
@@ -721,12 +717,12 @@ class DetailsTemplateScreen extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Image.asset("assets/images/empty_box.png",
-                                          color: AppColor.spareTKTemplate,
+                                          color: AppColor.primaryAmwaj,
                                           width: 120.w,
                                           height: 100.h),
                                       Text(AppStrings.noProductRelated.tr(),
                                           style: textStyleCustom(
-                                              fontColor: AppColor.spareTKTemplate,
+                                              fontColor: AppColor.primaryAmwaj,
                                               fontSize: 13.sp)),
                                     ],
                                   ),

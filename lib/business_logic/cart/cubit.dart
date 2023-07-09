@@ -59,6 +59,15 @@ class CartCubit extends Cubit<CartStates> {
   // }
 
 
+  //TODO: Update Item Cart
+
+  UpdateItemCart(Map<String, dynamic> body) {
+    cartRepository.updateCartRepository(body).then((value) {
+      emit(SuccessUpdateItemCart());
+    }).catchError((e) {
+      emit(ErrorCartState(e.toString()));
+    });
+  }
 
   int getQuantity() {
     return _quantity;

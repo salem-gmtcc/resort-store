@@ -32,18 +32,22 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPadding.symmetric(
-      horizontal: 16,
-      vertical: 10,
+      horizontal: 16.sp,
+      vertical: 10.sp,
       child: Form(
         key: formKey,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //TODO: email field
 
+            Text(AppStrings.login.tr(),style: mediumTextStyle(fontSize: 18.sp, color: AppColor.white,height: 0.1)),
+            Text(AppStrings.welcomeBack.tr(),style: mediumTextStyle(fontSize: 18.sp, color: AppColor.white)),
+
+            SizedBox(height: 15.h,),
+            //TODO: email field
             CustomTextField(
-              radius: 10.r,
+              radius: 8.r,
               controller: emailController,
               labelTextStyle: mediumTextStyle(fontSize: 13.sp, color: AppColor.white),
               cursorColor: AppColor.white,
@@ -55,7 +59,7 @@ class LoginForm extends StatelessWidget {
               hintText: '',
               labelText: AppStrings.email.tr(),
 
-              height: 35.h,
+              height: 40.h,
               validator: (value) {
                 if (value!.isEmpty) {
                   showToast(
@@ -66,7 +70,7 @@ class LoginForm extends StatelessWidget {
                 return null;
               },
               borderColor: AppColor.white,
-              width: 250.w,
+              width: 300.w,
               errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(10.r),
@@ -85,7 +89,7 @@ class LoginForm extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10.r)),
                   borderSide: BorderSide(color: Colors.white)),
             ),
-            SizedBox(height: 10.h),
+            SizedBox(height: 18.h),
             //TODO: password field
 
             CustomTextField(
@@ -99,7 +103,7 @@ class LoginForm extends StatelessWidget {
                   AppColor.primaryAmwaj,
               hintText: '',
               labelText: AppStrings.password.tr(),
-              height: 35.h,
+              height: 40.h,
               suffixIcon: CustomPadding.symmetric(
                 horizontal: 10,
                 child: IconButton(
@@ -108,22 +112,22 @@ class LoginForm extends StatelessWidget {
                     },
                     icon: context.read<LoginCubit>().isSecure
                         ? Icon(Icons.visibility_off,
-                            color: AppColor.primaryLight, size: 20.sp)
+                        color: AppColor.primaryLight, size: 20.sp)
                         : Icon(Icons.visibility,
-                            color: AppColor.primaryLight, size: 20.sp)),
+                        color: AppColor.primaryLight, size: 20.sp)),
               ),
               validator: (value) {
                 if (value!.isEmpty) {
                   showToast(
                       text:
-                          "${AppStrings.pleaseEnter.tr()} ${AppStrings.password.tr()}",
+                      "${AppStrings.pleaseEnter.tr()} ${AppStrings.password.tr()}",
                       color: ToastColors.WARNING);
                 }
                 return null;
               },
               borderColor: AppColor.white,
-              width: 250.w,
-              radius: 10.r,
+              width: 300.w,
+              radius: 8.r,
               errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.r),
                   borderSide: BorderSide(color: AppColor.white)),

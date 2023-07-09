@@ -112,7 +112,7 @@ class BuildCompareWidget extends StatelessWidget {
                             width: 15.w,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(2.r),
-                                color: AppColor.spareTKTemplate),
+                                color: AppColor.primaryAmwaj),
                             child: Icon(Icons.close,
                                 color: AppColor.white, size: 13.sp),
                           ),
@@ -190,7 +190,7 @@ class BuildCompareWidget extends StatelessWidget {
                                       height: 25.h,
                                       width: 25.w,
                                       title: "+",
-                                      color: AppColor.spareTKTemplate,
+                                      color: AppColor.primaryAmwaj,
                                       radius: 3.r,
                                     ),
                                   ],

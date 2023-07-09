@@ -64,6 +64,27 @@ class   CartService {
     }
   }
 
+  //TODO: Update Item Cart
+  Future<dynamic> updateItemCartService(Map<String, dynamic> body) async {
+    print("--------------------------- || enter ");
+    final response = await _apiClient.update("/index.php",
+        headers: HeaderApis.headers,
+        body: body,
+        parameters: {
+          ApiConstants.route:
+          "${ApiConstants.rest}/${ApiConstants.cart}/${ApiConstants.cart}",
+        });
+    print("-------------------------------- after response definition");
+    if (response.body.isNotEmpty) {
+      print("------------------------- ------------------ ${response.body}");
+      return Future(() => response.body);
+    } else {
+      return Future(() => null);
+    }
+  }
+
+
+
 //TODO: get coupon
   Future<dynamic> couponService(String coupon) async {
 

@@ -15,12 +15,10 @@ import 'package:resort_store/core/constants/route_constant.dart';
 import 'package:resort_store/core/constants/strings_app.dart';
 import 'package:resort_store/core/helpers/app_router.dart';
 import 'package:resort_store/core/helpers/shared_prefrencess.dart';
-import 'package:resort_store/data/repository/currencies/currencies.dart';
 import 'package:resort_store/data/repository/edit_profile/edit_profile.dart';
 import 'package:resort_store/data/repository/information/information.dart';
 import 'package:resort_store/data/repository/languages/languages.dart';
 import 'package:resort_store/data/repository/payment_address/payment_address.dart';
-import 'package:resort_store/data/services/currencies/currencies.dart';
 import 'package:resort_store/di/di.dart';
 import 'package:resort_store/presentation/resources/color_manger.dart';
 import 'package:resort_store/presentation/resources/textStyle_manger.dart';
@@ -70,6 +68,8 @@ class _SettingScreenState extends State<SettingScreen> {
   String? lastName =
       SharedHelper.sharedPreferences.getString(AppStrings.lastName);
 
+  int? templateCheck = SharedHelper.sharedPreferences.getInt(AppStrings.template);
+
   //TODO:
   TextEditingController? _name;
   TextEditingController? _email;
@@ -86,13 +86,13 @@ class _SettingScreenState extends State<SettingScreen> {
 
   TextEditingController? _updateEmail;
 
-  // create some values
+  //TODO : create some values
   Color pickerColor1 = Color(0xff443a49);
   Color pickerColor2 = Color(0xff443a49);
   Color currentColor = Color(0xffffff);
   Color pickFontColor = Color(0xffffff);
 
-// ValueChanged<Color> callback
+//TODO: ValueChanged<Color> callback
   void changeColor1(Color color) {
     setState(() => pickerColor1 = color);
     print("---------------------  :$color");
@@ -183,273 +183,273 @@ class _SettingScreenState extends State<SettingScreen> {
               showDialog(
                   context: context,
                   builder: (context) => BlocProvider(
-                        create: (context) => EditProfileCubit(
-                            editProfileRepository:
-                                instance<EditProfileRepository>()),
-                        child: BlocBuilder<EditProfileCubit, EditProfileStates>(
-                          builder: (context, state) {
-                            if (state is SuccessEditProfileState) {
-                              WidgetsBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                customAwesomeDialog(
-                                    context,
-                                    "Successfully Update Profile",
-                                    DialogType.success);
-                              });
-                            } else if (state is ErrorEditProfileState) {
-                              WidgetsBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                customAwesomeDialog(context, state.e.toString(),
-                                    DialogType.error);
-                              });
-                            }
-                            return CustomAlertDialog(
-                              widget: Stack(
-                                children: [
-                                  Container(
-                                    height: 300.h,
-                                    width: 250.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                      color: AppColor.white,
-                                    ),
-                                    child: Form(
-                                      key: _keyUpdateProfile,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          CustomTextField(
-                                            width: 250.w,
-                                            height: 40.h,
-                                            radius: 50.r,
-                                            hintText: AppStrings.firstName.tr(),
-                                            controller: _updateFirstName,
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return AppStrings.required.tr();
-                                              }
-                                              return null;
-                                            },
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            disabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            errorBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            borderColor:
-                                                AppColor.primaryAmwaj,
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          CustomTextField(
-                                            width: 250.w,
-                                            height: 40.h,
-                                            radius: 50.r,
-                                            hintText: AppStrings.lastName.tr(),
-                                            controller: _updateLastName,
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return AppStrings.required.tr();
-                                              }
-                                              return null;
-                                            },
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            disabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            errorBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            borderColor:
-                                                AppColor.primaryAmwaj,
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          IntlPhoneField(
-                                            validator: (val) {
-                                              if (val!.number.isEmpty) {
-                                                showToast(
-                                                    text:
-                                                        "please enter your phone Number",
-                                                    color: ToastColors.WARNING);
-                                              }
-                                              return;
-                                            },
-                                            controller: _updatePhone,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                              ),
-                                              disabledBorder:
-                                                  OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                              ),
-                                            ),
-                                            onChanged: (phone) {
-                                              print(phone.completeNumber);
-                                            },
-                                            initialCountryCode: "SA",
-                                            onCountryChanged: (country) {
-                                              print(
-                                                  'Country changed to: ${country.name}');
-                                            },
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          CustomTextField(
-                                            width: 250.w,
-                                            height: 40.h,
-                                            radius: 50.r,
-                                            hintText: AppStrings.email.tr(),
-                                            controller: _updateEmail,
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return AppStrings.required.tr();
-                                              }
-                                              return null;
-                                            },
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            disabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            errorBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                borderSide: BorderSide(
-                                                    color: AppColor
-                                                        .primaryAmwaj)),
-                                            borderColor:
-                                                AppColor.primaryAmwaj,
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          CustomButton(
-                                            onPressed: () {
-                                              if (_keyUpdateProfile
-                                                  .currentState!
-                                                  .validate()) {
-                                                context
-                                                    .read<EditProfileCubit>()
-                                                    .editProfileCubit({
-                                                  "firstname":
-                                                      _updateFirstName!.text,
-                                                  "lastname":
-                                                      _updateLastName!.text,
-                                                  "email": _email!.text,
-                                                  "telephone":
-                                                      _updatePhone!.text
-                                                });
-                                              }
-                                            },
-                                            height: 35.h,
-                                            width: 100.w,
-                                            radius: 5.r,
-                                            color: AppColor.primaryAmwaj,
-                                            title: AppStrings.save.tr(),
-                                          )
-                                        ],
+                    create: (context) => EditProfileCubit(
+                        editProfileRepository:
+                        instance<EditProfileRepository>()),
+                    child: BlocBuilder<EditProfileCubit, EditProfileStates>(
+                      builder: (context, state) {
+                        if (state is SuccessEditProfileState) {
+                          WidgetsBinding.instance
+                              .addPostFrameCallback((timeStamp) {
+                            customAwesomeDialog(
+                                context,
+                                "Successfully Update Profile",
+                                DialogType.success);
+                          });
+                        } else if (state is ErrorEditProfileState) {
+                          WidgetsBinding.instance
+                              .addPostFrameCallback((timeStamp) {
+                            customAwesomeDialog(context, state.e.toString(),
+                                DialogType.error);
+                          });
+                        }
+                        return CustomAlertDialog(
+                          widget: Stack(
+                            children: [
+                              Container(
+                                height: 300.h,
+                                width: 250.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  color: AppColor.white,
+                                ),
+                                child: Form(
+                                  key: _keyUpdateProfile,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      CustomTextField(
+                                        width: 250.w,
+                                        height: 40.h,
+                                        radius: 50.r,
+                                        hintText: AppStrings.firstName.tr(),
+                                        controller: _updateFirstName,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return AppStrings.required.tr();
+                                          }
+                                          return null;
+                                        },
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        disabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        errorBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        borderColor:
+                                        AppColor.primaryAmwaj,
                                       ),
-                                    ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      CustomTextField(
+                                        width: 250.w,
+                                        height: 40.h,
+                                        radius: 50.r,
+                                        hintText: AppStrings.lastName.tr(),
+                                        controller: _updateLastName,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return AppStrings.required.tr();
+                                          }
+                                          return null;
+                                        },
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        disabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        errorBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        borderColor:
+                                        AppColor.primaryAmwaj,
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      IntlPhoneField(
+                                        validator: (val) {
+                                          if (val!.number.isEmpty) {
+                                            showToast(
+                                                text:
+                                                "please enter your phone Number",
+                                                color: ToastColors.WARNING);
+                                          }
+                                          return;
+                                        },
+                                        controller: _updatePhone,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                          ),
+                                          disabledBorder:
+                                          OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                          ),
+                                        ),
+                                        onChanged: (phone) {
+                                          print(phone.completeNumber);
+                                        },
+                                        initialCountryCode: "SA",
+                                        onCountryChanged: (country) {
+                                          print(
+                                              'Country changed to: ${country.name}');
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      CustomTextField(
+                                        width: 250.w,
+                                        height: 40.h,
+                                        radius: 50.r,
+                                        hintText: AppStrings.email.tr(),
+                                        controller: _updateEmail,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return AppStrings.required.tr();
+                                          }
+                                          return null;
+                                        },
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        disabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        errorBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.r),
+                                            borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj)),
+                                        borderColor:
+                                        AppColor.primaryAmwaj,
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      CustomButton(
+                                        onPressed: () {
+                                          if (_keyUpdateProfile
+                                              .currentState!
+                                              .validate()) {
+                                            context
+                                                .read<EditProfileCubit>()
+                                                .editProfileCubit({
+                                              "firstname":
+                                              _updateFirstName!.text,
+                                              "lastname":
+                                              _updateLastName!.text,
+                                              "email": _email!.text,
+                                              "telephone":
+                                              _updatePhone!.text
+                                            });
+                                          }
+                                        },
+                                        height: 35.h,
+                                        width: 100.w,
+                                        radius: 5.r,
+                                        color: AppColor.primaryAmwaj,
+                                        title: AppStrings.save.tr(),
+                                      )
+                                    ],
                                   ),
-                                  if (state is LoadingEditProfileState)
-                                    Center(
-                                      child: CircularProgressIndicator(
-                                          color: AppColor.primaryAmwaj),
-                                    )
-                                ],
+                                ),
                               ),
-                              title: "Update Profile",
-                              image: "user-Bold-1.svg",
-                            );
-                          },
-                        ),
-                      ));
+                              if (state is LoadingEditProfileState)
+                                Center(
+                                  child: CircularProgressIndicator(
+                                      color: AppColor.primaryAmwaj),
+                                )
+                            ],
+                          ),
+                          title: "Update Profile",
+                          image: "user-Bold-1.svg",
+                        );
+                      },
+                    ),
+                  ));
             },
           ),
           Divider(color: AppColor.primaryLight, height: 1.h),
@@ -461,118 +461,131 @@ class _SettingScreenState extends State<SettingScreen> {
                 showDialog(
                     context: context,
                     builder: (context) => BlocProvider(
-                          create: (context) => LanguagesCubit(
-                              languagesRepository:
-                                  instance<LanguagesRepository>())
-                            ..getAllLanguagesCubit(),
-                          child: BlocBuilder<LanguagesCubit, LanguageStates>(
-                            builder: (context, state) {
-                              if (state is GetAllLanguageSuccessState) {
-                                return Stack(
-                                  children: [
-                                    CustomAlertDialog(
-                                      widget: Container(
-                                          height: 150.h,
-                                          width: 250.w,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20.r),
-                                            color: AppColor.white,
-                                          ),
-                                          child: ListView.builder(
-                                              itemCount: state.languagesModel
-                                                  .languageDataModel!.length,
-                                              itemBuilder: (context, index) {
-                                                return CustomPadding.symmetric(
-                                                  vertical: 10.0,
-                                                  child: CustomButton(
-                                                    title: state
-                                                        .languagesModel
-                                                        .languageDataModel![
-                                                            index]
-                                                        .name,
-                                                    onPressed: () {
-                                                      if (state
-                                                              .languagesModel
-                                                              .languageDataModel![
-                                                                  index]
-                                                              .code ==
-                                                          "ar") {
-                                                        setState(() {
-                                                          context
-                                                              .setLocale(
-                                                                  const Locale(
-                                                                      'ar',
-                                                                      'SA'))
-                                                              .then((value) {
-                                                            AppRouter.back(
-                                                                context);
-                                                          });
-                                                        });
-                                                      } else {
-                                                        setState(() {
-                                                          context
-                                                              .setLocale(
-                                                                  const Locale(
-                                                                      'en',
-                                                                      'US'))
-                                                              .then((value) {
-                                                            AppRouter.back(
-                                                                context);
-                                                          });
-                                                        });
-                                                      }
-                                                      print(
-                                                          "--------------------------------------${state.languagesModel.languageDataModel![index].code}");
-                                                      SharedHelper
-                                                          .sharedPreferences
-                                                          .setString(
-                                                              AppStrings
-                                                                  .languageCode,
-                                                              state
-                                                                  .languagesModel
-                                                                  .languageDataModel![
-                                                                      index]
-                                                                  .code
-                                                                  .toString());
-                                                    },
-                                                    width: 150.w,
-                                                    height: 40.h,
-                                                    color: context
-                                                            .read<
-                                                                ThemeDataCubit>()
-                                                            .recolor ??
-                                                        AppColor.primaryAmwaj,
-                                                    radius: 20.r,
-                                                    textStyle: textStyleCustom(
-                                                      context: context,
-                                                      fontSize: 15.sp,
-                                                    ),
-                                                  ),
-                                                );
-                                              })),
-                                      title: AppStrings.selectLanguages.tr(),
-                                      image: 'globe-Bold.svg',
+                      create: (context) => LanguagesCubit(
+                          languagesRepository:
+                          instance<LanguagesRepository>())
+                        ..getAllLanguagesCubit(),
+                      child: BlocBuilder<LanguagesCubit, LanguageStates>(
+                        builder: (context, state) {
+                          if (state is GetAllLanguageSuccessState) {
+                            return Stack(
+                              children: [
+                                CustomAlertDialog(
+                                  widget: Container(
+                                      height: 100.h,
+                                      width: 180.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20.r),
+                                        // color: AppColor.red,
+                                      ),
+                                      child: ListView.builder(
+                                          itemCount: state.languagesModel
+                                              .languageDataModel!.length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding: EdgeInsets.all(5.sp),
+                                              child: CustomButton(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .center,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .center,
+                                                  children: [
+                                                    Text(state.languagesModel.languageDataModel![index].name!,
+                                                        style: mediumTextStyle(
+                                                            fontSize: 12.sp,
+                                                            color: AppColor
+                                                                .white))
+
+                                                  ],
+                                                ),
+                                                onPressed: () {
+                                                  if (state.languagesModel.languageDataModel![index].code == "ar")
+                                                  {
+                                                    setState(() {
+                                                      context.setLocale(const Locale('ar', 'SA'))
+                                                          .then((value) {
+                                                        AppRouter.back(context);
+                                                      });
+                                                    });
+                                                  } else {
+                                                    setState(() {
+                                                      context
+                                                          .setLocale(
+                                                          const Locale(
+                                                              'en',
+                                                              'US'))
+                                                          .then((value) {
+                                                        AppRouter.back(
+                                                            context);
+                                                      });
+                                                    });
+                                                  }
+                                                  print("---- ${state.languagesModel.languageDataModel![index].code}");
+
+                                                  SharedHelper
+                                                      .sharedPreferences
+                                                      .setString(
+                                                      AppStrings
+                                                          .languageCode,
+                                                      state
+                                                          .languagesModel
+                                                          .languageDataModel![
+                                                      index]
+                                                          .code
+                                                          .toString());
+
+                                                  //TODO : Selected Color
+
+                                                  // if (state.languagesModel.languageDataModel![index].code == "ar") {
+                                                  //   _selectedLanguages = true;
+                                                  // } else if (state.languagesModel.languageDataModel![index].code == "ar") {
+                                                  //   _selectedLanguages =
+                                                  //       true;
+                                                  // } else {
+                                                  //   _selectedLanguages =
+                                                  //       false;
+                                                  // }
+                                                },
+                                                width: 80.w,
+                                                height: 35.h,
+                                                color: context.read<ThemeDataCubit>().recolor ??
+                                                    AppColor.primaryAmwaj,
+                                                radius: 20.r,
+                                                textStyle: textStyleCustom(
+                                                  context: context,
+                                                  fontSize: 15.sp,
+                                                ),
+                                              ),
+                                            );
+                                          })),
+                                  title: AppStrings.selectLanguages.tr(),
+                                  image: 'globe-Bold.svg',
+                                ),
+                                if (state is LanguageLoadingState)
+                                  Center(
+                                    child: CircularProgressIndicator(
+                                        color: AppColor.primaryAmwaj
                                     ),
-                                    if (state is LanguageLoadingState)
-                                      Center(
-                                        child: CircularProgressIndicator(
-                                            color: AppColor.primaryAmwaj),
-                                      )
-                                  ],
-                                );
-                              } else if (state is LanguageErrorState) {
-                                showToast(
-                                    text: state.error.toString(),
-                                    color: ToastColors.ERROR);
-                              }
-                              return Center(
-                                child: CircularProgressIndicator(
-                                    color: AppColor.white),
-                              );
-                            },
-                          ),
-                        ));
+                                  )
+                              ],
+                            );
+                          } else if (state is LanguageErrorState) {
+                            showToast(
+                                text: state.error.toString(),
+                                color: ToastColors.ERROR
+                            );
+                          }
+                          return Center(
+                            child: CircularProgressIndicator(
+                                color: AppColor.white
+                            ),
+                          );
+                        },
+                      ),
+                    ));
               },
               icon: Icons.language,
               iconColor: AppColor.white),
@@ -584,77 +597,92 @@ class _SettingScreenState extends State<SettingScreen> {
                     context: context,
                     builder: (context) =>
                         BlocBuilder<CurrenciesCubit, CurrenciesState>(
-                      builder: (context, state) {
-                        if (state is CurrenciesSuccessState) {
-                          return CustomAlertDialog(
-                            widget: Container(
-                                height: 100.h,
-                                width: 250.w,
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.circular(20.r),
-                                  color: AppColor.white,
-                                ),
-                                child: ListView.builder(
-                                    physics: const BouncingScrollPhysics(),
-                                    itemCount: state
-                                        .currencies
-                                        .currenciesModel!
-                                        .currenciesDataModel!
-                                        .length,
-                                    itemBuilder: (context, index) {
-                                      print(state.currencies.currenciesModel!.currenciesDataModel![index]
-                                          .title);
-                                      return Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: 5.sp, top: 5.sp),
-                                        child: CustomButton(
-                                          title: state
+                          builder: (context, state) {
+                            if (state is CurrenciesSuccessState) {
+                              return CustomAlertDialog(
+                                widget: Container(
+                                    height: 100.h,
+                                    width: 180.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.r),
+                                      color: AppColor.white,
+                                    ),
+                                    child: ListView.builder(
+                                        physics: const BouncingScrollPhysics(),
+                                        itemCount: state
+                                            .currencies
+                                            .currenciesModel!
+                                            .currenciesDataModel!
+                                            .length,
+                                        itemBuilder: (context, index) {
+                                          print(state
                                               .currencies
                                               .currenciesModel!
                                               .currenciesDataModel![index]
-                                              .title,
+                                              .title);
+                                          return Padding(
+                                            padding: EdgeInsets.all(5.sp),
+                                            child: CustomButton(
+                                              title: state
+                                                  .currencies
+                                                  .currenciesModel!
+                                                  .currenciesDataModel![index]
+                                                  .title,
+                                              onPressed: () {
+                                                setState(() {
+                                                  SharedHelper.sharedPreferences
+                                                      .setString(
+                                                      AppStrings
+                                                          .currencyCode,
+                                                      state
+                                                          .currencies
+                                                          .currenciesModel!
+                                                          .currenciesDataModel![
+                                                      index]
+                                                          .code
+                                                          .toString());
+                                                });
 
-                                          onPressed: () {
-                                            setState(() {
-                                              SharedHelper.sharedPreferences.setString(AppStrings.currencyCode, state.currencies.currenciesModel!.currenciesDataModel![index].code.toString());
-                                            });
+                                                showToast(
+                                                    text: AppStrings
+                                                        .changeSuccessfully
+                                                        .tr(),
+                                                    color: ToastColors.SUCCESS);
 
-                                           showToast(text: AppStrings.changeSuccessfully.tr(), color: ToastColors.SUCCESS);
+                                                AppRouter.back(context);
+                                              },
+                                              width: 80.w,
+                                              height: 35.h,
+                                              color: context.read<ThemeDataCubit>().recolor ??
+                                                  AppColor.primaryAmwaj,
+                                              radius: 20.r,
+                                              textStyle: textStyleCustom(
+                                                context: context,
+                                                fontSize: 15.sp,
+                                              ),
+                                            ),
+                                          );
+                                        })),
+                                title: AppStrings.changeCurrency.tr(),
+                                image: 'globe-Bold.svg',
+                              );
+                            } else if (state is ChangeCurrencyCode) {
+                              code = state.code.toString();
+                              print("*/**/*/*/*/*/*       $code");
+                            } else if (state is CurrenciesErrorState) {
+                              print("-------------- * ${state.error}");
+                              showToast(
+                                  text: state.error.toString(),
+                                  color: ToastColors.ERROR);
+                            }
 
-                                           AppRouter.back(context);
-
-                                          },
-                                          width: 150.w,
-                                          height: 40.h,
-                                          color: context.read<ThemeDataCubit>().recolor ??
-                                              AppColor.primaryAmwaj,
-                                          radius: 20.r,
-                                          textStyle: textStyleCustom(
-                                              context: context,
-                                              fontSize: 15.sp),
-                                        ),
-                                      );
-                                    })),
-                            title: AppStrings.changeCurrency.tr(),
-                            image: 'globe-Bold.svg',
-                          );
-                        }else if (state is ChangeCurrencyCode){
-                          code =  state.code.toString();
-                          print("*/**/*/*/*/*/*       $code");
-                        } else if (state is CurrenciesErrorState) {
-                          print("-------------- * ${state.error}");
-                          showToast(
-                              text: state.error.toString(),
-                              color: ToastColors.ERROR);
-                        }
-                        return Center(
-                          child: CircularProgressIndicator(
-                            color: AppColor.white,
-                          ),
-                        );
-                      },
-                    ));
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: AppColor.white,
+                              ),
+                            );
+                          },
+                        ));
               },
               icon: Icons.currency_exchange,
               iconColor: AppColor.white),
@@ -666,86 +694,81 @@ class _SettingScreenState extends State<SettingScreen> {
                 showDialog(
                     context: context,
                     builder: (context) => BlocProvider(
-                          create: (context) => InformationCubit(
-                              informationRepository:
-                                  instance<InformationRepository>())
-                            ..getInformationCubit(),
-                          child:
-                              BlocBuilder<InformationCubit, InformationStates>(
-                            builder: (context, state) {
-                              if (state is InformationSuccessStates) {
-                                return Stack(
-                                  children: [
-                                    CustomAlertDialog(
-                                      widget: Container(
-                                          height: 200.h,
-                                          width: 200.w,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20.r),
-                                            color: AppColor.white,
-                                          ),
-                                          child: ListView.builder(
-                                              physics:
-                                                  const BouncingScrollPhysics(),
-                                              itemCount: state.informationModel
-                                                  .data!.length,
-                                              itemBuilder: (context, index) {
-                                                return CustomPadding.symmetric(
-                                                  vertical: 5.0,
-                                                  child: CustomButton(
-                                                    title: state
-                                                        .informationModel
-                                                        .data![index]
-                                                        .title,
-                                                    onPressed: () {
-                                                      AppRouter.offNamed(
-                                                          context,
-                                                          RouteConstants
-                                                              .informationScreen,
-                                                          arguments: state
-                                                              .informationModel
-                                                              .data![index]);
-                                                    },
-                                                    height: 40.h,
-                                                    color: context
-                                                            .read<
-                                                                ThemeDataCubit>()
-                                                            .recolor ??
-                                                        AppColor.primaryAmwaj,
-                                                    radius: 20.r,
-                                                    textStyle: textStyleCustom(
-                                                      context: context,
-                                                      fontSize: 15.sp,
-                                                    ),
-                                                  ),
-                                                );
-                                              })),
-                                      title: AppStrings.publicInformation.tr(),
-                                      image: 'info-circle-Bold-1.svg',
-                                    ),
-                                    if (state is InformationLoadingStates)
-                                      CircularProgressIndicator(
+                      create: (context) => InformationCubit(
+                          informationRepository:
+                          instance<InformationRepository>())
+                        ..getInformationCubit(),
+                      child:
+                      BlocBuilder<InformationCubit, InformationStates>(
+                        builder: (context, state) {
+                          if (state is InformationSuccessStates) {
+                            return Stack(
+                              children: [
+                                CustomAlertDialog(
+                                  widget: Container(
+                                      height: 100.h,
+                                      width: 180.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20.r),
                                         color: AppColor.white,
-                                      )
-                                  ],
-                                );
-                              } else if (state is InformationErrorStates) {
-                                showToast(
-                                    text: state.e.toString(),
-                                    color: ToastColors.ERROR);
-                              }
-                              return Center(
-                                child: SizedBox(
-                                    height: 50.h,
-                                    width: 50.w,
-                                    child: CircularProgressIndicator(
-                                      color: AppColor.white,
-                                    )),
-                              );
-                            },
-                          ),
-                        ));
+                                      ),
+                                      child: ListView.builder(
+                                          physics: const BouncingScrollPhysics(),
+                                          itemCount: state.informationModel.data!.length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding: EdgeInsets.all(5.sp),
+                                              child: CustomButton(
+                                                title: state
+                                                    .informationModel
+                                                    .data![index]
+                                                    .title,
+                                                onPressed: () {
+                                                  AppRouter.offNamed(
+                                                      context,
+                                                      RouteConstants
+                                                          .informationScreen,
+                                                      arguments: state
+                                                          .informationModel
+                                                          .data![index]);
+                                                },
+                                                width: 80.w,
+                                                height: 35.h,
+                                                color: context.read<ThemeDataCubit>().recolor ??
+                                                    AppColor.primaryAmwaj,
+                                                radius: 20.r,
+                                                textStyle: textStyleCustom(
+                                                  context: context,
+                                                  fontSize: 15.sp,
+                                                ),
+                                              ),
+                                            );
+                                          })),
+                                  title: AppStrings.publicInformation.tr(),
+                                  image: 'info-circle-Bold-1.svg',
+                                ),
+                                if (state is InformationLoadingStates)
+                                  CircularProgressIndicator(
+                                    color: AppColor.white,
+                                  )
+                              ],
+                            );
+                          } else if (state is InformationErrorStates) {
+                            showToast(
+                                text: state.e.toString(),
+                                color: ToastColors.ERROR);
+                          }
+                          return Center(
+                            child: SizedBox(
+                                height: 50.h,
+                                width: 50.w,
+                                child: CircularProgressIndicator(
+                                  color: AppColor.white,
+                                )),
+                          );
+                        },
+                      ),
+                    ));
               },
               icon: Icons.info_outline,
               iconColor: AppColor.white),
@@ -756,244 +779,247 @@ class _SettingScreenState extends State<SettingScreen> {
                 showDialog(
                     context: context,
                     builder: (context) => BlocProvider(
-                          create: (context) => EditProfileCubit(
-                              editProfileRepository:
-                                  instance<EditProfileRepository>()),
-                          child:
-                              BlocBuilder<EditProfileCubit, EditProfileStates>(
-                            builder: (context, state) {
-                              if (state is SuccessEditProfileState) {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((timeStamp) {
-                                  customAwesomeDialog(
-                                      context,
-                                      AppStrings.changeSuccessfully.tr(),
-                                      DialogType.success);
-                                });
-                              } else if (state is ErrorEditProfileState) {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((timeStamp) {
-                                  customAwesomeDialog(context,
-                                      state.e.toString(), DialogType.error);
-                                });
-                              }
-                              return CustomAlertDialog(
-                                  image: "lock-Bold.svg",
-                                  widget: Stack(
-                                    children: [
-                                      Container(
-                                        height: 220.h,
-                                        width: 250.w,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.r),
-                                          color: AppColor.white,
-                                        ),
-                                        child: Form(
-                                          key: _keyChangePassword,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              CustomTextField(
-                                                containerColor: AppColor.white,
-                                                width: 200.w,
-                                                height: 40.h,
-                                                radius: 50.r,
-                                                hintText: "",
-                                                controller: _oldPassword,
-                                                validator: (value) {
-                                                  if (value!.isEmpty) {
-                                                    return AppStrings.required
-                                                        .tr();
-                                                  }
-                                                  return null;
-                                                },
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.r),
-                                                        borderSide: BorderSide(
-                                                          color: AppColor
-                                                              .primaryAmwaj,
-                                                        )),
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    borderSide: BorderSide(
-                                                        color: AppColor
-                                                            .primaryAmwaj)),
-                                                enabledBorder: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    borderSide: BorderSide(
-                                                        color: AppColor
-                                                            .primaryAmwaj)),
-                                                disabledBorder:
-                                                    OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.r),
-                                                        borderSide: BorderSide(
-                                                            color: AppColor
-                                                                .primaryAmwaj)),
-                                                labelText:
-                                                    AppStrings.password.tr(),
-                                                borderColor:
-                                                    AppColor.primaryAmwaj,
+                      create: (context) => EditProfileCubit(
+                          editProfileRepository:
+                          instance<EditProfileRepository>()),
+                      child:
+                      BlocBuilder<EditProfileCubit, EditProfileStates>(
+                        builder: (context, state) {
+                          if (state is SuccessEditProfileState) {
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((timeStamp) {
+                              customAwesomeDialog(
+                                  context,
+                                  AppStrings.changeSuccessfully.tr(),
+                                  DialogType.success);
+                            });
+                          } else if (state is ErrorEditProfileState) {
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((timeStamp) {
+                              customAwesomeDialog(context,
+                                  state.e.toString(), DialogType.error);
+                            });
+                          }
+                          return CustomAlertDialog(
+                              image: "lock-Bold.svg",
+                              widget: Stack(
+                                children: [
+                                  Center(
+                                    child: Container(
+                                      height: 180.h,
+                                      width: 200.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(10.r),
+                                        color: AppColor.white,
+                                      ),
+                                      child: Form(
+                                        key: _keyChangePassword,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            CustomTextField(
+                                              containerColor: AppColor.white,
+                                              width: 190.w,
+                                              height: 35.h,
+                                              radius: 20.r,
+                                              hintText: "",
+                                              controller: _oldPassword,
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return AppStrings.required
+                                                      .tr();
+                                                }
+                                                return null;
+                                              },
+                                              focusedBorder:
+                                              OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(10.r),
+                                                  borderSide: BorderSide(
+                                                    color: AppColor
+                                                        .primaryAmwaj,
+                                                  )),
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              disabledBorder:
+                                              OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              labelText:
+                                              AppStrings.password.tr(),
+                                              borderColor:
+                                              AppColor.primaryAmwaj,
+                                            ),
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+                                            CustomTextField(
+                                              containerColor: AppColor.white,
+                                              width: 190.w,
+                                              height: 35.h,
+                                              radius: 20.r,
+                                              hintText: "",
+                                              controller: _newPassword,
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return AppStrings.required
+                                                      .tr();
+                                                }
+                                                return null;
+                                              },
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              disabledBorder:
+                                              OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              labelText:
+                                              AppStrings.newPassword.tr(),
+                                              borderColor:
+                                              AppColor.primaryAmwaj,
+                                            ),
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+                                            CustomTextField(
+                                              containerColor: AppColor.white,
+                                              width: 190.w,
+                                              height: 35.h,
+                                              radius: 20.r,
+                                              hintText: "",
+                                              controller: _confirmPassword,
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return AppStrings.required
+                                                      .tr();
+                                                }
+                                                return null;
+                                              },
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              disabledBorder:
+                                              OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(20.r),
+                                                  borderSide: BorderSide(
+                                                      color: AppColor
+                                                          .primaryAmwaj)),
+                                              labelText: AppStrings
+                                                  .confirmPassword
+                                                  .tr(),
+                                              borderColor:
+                                              AppColor.primaryAmwaj,
+                                            ),
+                                            SizedBox(
+                                              height: 15.h,
+                                            ),
+                                            CustomButton(
+                                              onPressed: () {
+                                                if (_keyChangePassword
+                                                    .currentState!
+                                                    .validate()) {
+                                                  context
+                                                      .read<
+                                                      EditProfileCubit>()
+                                                      .changePasswordCubit({
+                                                    "password":
+                                                    _newPassword!.text,
+                                                    "confirm":
+                                                    _confirmPassword!.text
+                                                  });
+                                                }
+                                              },
+                                              width: 100.w,
+                                              height: 30.h,
+                                              color: context
+                                                  .read<ThemeDataCubit>()
+                                                  .recolor ??
+                                                  AppColor.primaryAmwaj,
+                                              radius: 20.r,
+                                              title: AppStrings.save.tr(),
+                                              textStyle: textStyleCustom(
+                                                context: context,
+                                                fontSize: 15.sp,
                                               ),
-                                              SizedBox(
-                                                height: 5.h,
-                                              ),
-                                              CustomTextField(
-                                                containerColor: AppColor.white,
-                                                width: 200.w,
-                                                height: 40.h,
-                                                radius: 50.r,
-                                                hintText: "",
-                                                controller: _newPassword,
-                                                validator: (value) {
-                                                  if (value!.isEmpty) {
-                                                    return AppStrings.required
-                                                        .tr();
-                                                  }
-                                                  return null;
-                                                },
-                                                focusedBorder: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    borderSide: BorderSide(
-                                                        color: AppColor
-                                                            .primaryAmwaj)),
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    borderSide: BorderSide(
-                                                        color: AppColor
-                                                            .primaryAmwaj)),
-                                                enabledBorder: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    borderSide: BorderSide(
-                                                        color: AppColor
-                                                            .primaryAmwaj)),
-                                                disabledBorder:
-                                                    OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.r),
-                                                        borderSide: BorderSide(
-                                                            color: AppColor
-                                                                .primaryAmwaj)),
-                                                labelText:
-                                                    AppStrings.newPassword.tr(),
-                                                borderColor:
-                                                    AppColor.primaryAmwaj,
-                                              ),
-                                              SizedBox(
-                                                height: 5.h,
-                                              ),
-                                              CustomTextField(
-                                                containerColor: AppColor.white,
-                                                width: 200.w,
-                                                height: 40.h,
-                                                radius: 50.r,
-                                                hintText: "",
-                                                controller: _confirmPassword,
-                                                validator: (value) {
-                                                  if (value!.isEmpty) {
-                                                    return AppStrings.required
-                                                        .tr();
-                                                  }
-                                                  return null;
-                                                },
-                                                focusedBorder: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    borderSide: BorderSide(
-                                                        color: AppColor
-                                                            .primaryAmwaj)),
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    borderSide: BorderSide(
-                                                        color: AppColor
-                                                            .primaryAmwaj)),
-                                                enabledBorder: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    borderSide: BorderSide(
-                                                        color: AppColor
-                                                            .primaryAmwaj)),
-                                                disabledBorder:
-                                                    OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20.r),
-                                                        borderSide: BorderSide(
-                                                            color: AppColor
-                                                                .primaryAmwaj)),
-                                                labelText: AppStrings
-                                                    .confirmPassword
-                                                    .tr(),
-                                                borderColor:
-                                                    AppColor.primaryAmwaj,
-                                              ),
-                                              SizedBox(
-                                                height: 5.h,
-                                              ),
-                                              CustomButton(
-                                                onPressed: () {
-                                                  if (_keyChangePassword
-                                                      .currentState!
-                                                      .validate()) {
-                                                    context
-                                                        .read<
-                                                            EditProfileCubit>()
-                                                        .changePasswordCubit({
-                                                      "password":
-                                                          _newPassword!.text,
-                                                      "confirm":
-                                                          _confirmPassword!.text
-                                                    });
-                                                  }
-                                                },
-                                                height: 35.h,
-                                                width: 100.w,
-                                                radius: 5.r,
-                                                color: context
-                                                        .read<ThemeDataCubit>()
-                                                        .recolor ??
-                                                    AppColor.primaryAmwaj,
-                                                title: AppStrings.save.tr(),
-                                                textStyle: textStyleCustom(
-                                                    fontSize: 15.sp,
-                                                    context: context),
-                                              )
-                                            ],
-                                          ),
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      if (state is LoadingEditProfileState)
-                                        Center(
-                                          child: CircularProgressIndicator(
-                                              color: AppColor.primaryAmwaj),
-                                        )
-                                    ],
+                                    ),
                                   ),
-                                  title: AppStrings.changePassword.tr());
-                            },
-                          ),
-                        ));
+                                  if (state is LoadingEditProfileState)
+                                    Center(
+                                      child: CircularProgressIndicator(
+                                          color: AppColor.primaryAmwaj),
+                                    )
+                                ],
+                              ),
+                              title: AppStrings.changePassword.tr());
+                        },
+                      ),
+                    ));
               },
               icon: Icons.lock_open_outlined,
               iconColor: AppColor.white),
@@ -1009,156 +1035,156 @@ class _SettingScreenState extends State<SettingScreen> {
                         widget: BlocProvider(
                           create: (context) => PaymentAddressCubit(
                               paymentAddressRepository:
-                                  instance<PaymentAddressRepository>())
+                              instance<PaymentAddressRepository>())
                             ..getAllPaymentAddressCubit(),
                           child: Column(
                             children: [
                               BlocBuilder<PaymentAddressCubit,
-                                      PaymentAddressStates>(
+                                  PaymentAddressStates>(
                                   builder: (context, state) {
-                                print("******state : $state");
-                                if (state is SuccessGetAllPaymentAddressState) {
-                                  if (state
-                                      .paymentAddressModel!
-                                      .getPaymentAddressModel!
-                                      .paymentListAddressModel!
-                                      .isNotEmpty) {
-                                    return SizedBox(
-                                      height: 200.h,
-                                      width: 200.w,
-                                      child: ListView.builder(
-                                          physics:
+                                    print("******state : $state");
+                                    if (state is SuccessGetAllPaymentAddressState) {
+                                      if (state
+                                          .paymentAddressModel!
+                                          .getPaymentAddressModel!
+                                          .paymentListAddressModel!
+                                          .isNotEmpty) {
+                                        return SizedBox(
+                                          height: 200.h,
+                                          width: 200.w,
+                                          child: ListView.builder(
+                                              physics:
                                               const BouncingScrollPhysics(),
-                                          itemCount: state
-                                              .paymentAddressModel!
-                                              .getPaymentAddressModel!
-                                              .paymentListAddressModel!
-                                              .length,
-                                          itemBuilder: (context, i) {
-                                            return InkWell(
-                                              onTap: () {
-                                                AppRouter.back(context);
-                                              },
-                                              child: Padding(
-                                                padding:
+                                              itemCount: state
+                                                  .paymentAddressModel!
+                                                  .getPaymentAddressModel!
+                                                  .paymentListAddressModel!
+                                                  .length,
+                                              itemBuilder: (context, i) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    AppRouter.back(context);
+                                                  },
+                                                  child: Padding(
+                                                    padding:
                                                     const EdgeInsets.all(3.0),
-                                                child: Container(
-                                                  height: 60.h,
-                                                  width: 120.w,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
+                                                    child: Container(
+                                                      height: 60.h,
+                                                      width: 120.w,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
                                                         BorderRadius.circular(
                                                             10.r),
-                                                    gradient: LinearGradient(
-                                                        colors: [
-                                                          context
+                                                        gradient: LinearGradient(
+                                                            colors: [
+                                                              context
                                                                   .read<
-                                                                      ThemeDataCubit>()
-                                                                  .recolor ??
-                                                              AppColor
-                                                                  .primaryAmwaj,
-                                                          context
-                                                              .read<
                                                                   ThemeDataCubit>()
-                                                              .recolor!
-                                                              .withOpacity(0.7)
-                                                        ],
-                                                        begin:
+                                                                  .recolor ??
+                                                                  AppColor
+                                                                      .primaryAmwaj,
+                                                              context
+                                                                  .read<
+                                                                  ThemeDataCubit>()
+                                                                  .recolor!
+                                                                  .withOpacity(0.7)
+                                                            ],
+                                                            begin:
                                                             Alignment.topLeft,
-                                                        end: Alignment
-                                                            .bottomRight),
+                                                            end: Alignment
+                                                                .bottomRight),
+                                                      ),
+                                                      child: Column(
+                                                        children: [
+                                                          Text(
+                                                              state
+                                                                  .paymentAddressModel!
+                                                                  .getPaymentAddressModel!
+                                                                  .paymentListAddressModel![
+                                                              i]
+                                                                  .firstname!,
+                                                              style: boldTextStyle(
+                                                                  fontSize: 10.0,
+                                                                  color: AppColor
+                                                                      .white)),
+                                                          Text(
+                                                              state
+                                                                  .paymentAddressModel!
+                                                                  .getPaymentAddressModel!
+                                                                  .paymentListAddressModel![
+                                                              i]
+                                                                  .country!,
+                                                              style: boldTextStyle(
+                                                                color:
+                                                                AppColor.white,
+                                                                fontSize: 10.0,
+                                                              )),
+                                                          Text(
+                                                              state
+                                                                  .paymentAddressModel!
+                                                                  .getPaymentAddressModel!
+                                                                  .paymentListAddressModel![
+                                                              i]
+                                                                  .city!,
+                                                              style:
+                                                              mediumTextStyle(
+                                                                color:
+                                                                AppColor.white,
+                                                                fontSize: 10.0,
+                                                              )),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ),
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                          state
-                                                              .paymentAddressModel!
-                                                              .getPaymentAddressModel!
-                                                              .paymentListAddressModel![
-                                                                  i]
-                                                              .firstname!,
-                                                          style:
-                                                              textStyleCustom(
-                                                            context: context,
-                                                            fontSize: 10.0,
-                                                          )),
-                                                      Text(
-                                                          state
-                                                              .paymentAddressModel!
-                                                              .getPaymentAddressModel!
-                                                              .paymentListAddressModel![
-                                                                  i]
-                                                              .country!,
-                                                          style:
-                                                              textStyleCustom(
-                                                            context: context,
-                                                            fontSize: 10.0,
-                                                          )),
-                                                      Text(
-                                                          state
-                                                              .paymentAddressModel!
-                                                              .getPaymentAddressModel!
-                                                              .paymentListAddressModel![
-                                                                  i]
-                                                              .city!,
-                                                          style:
-                                                              textStyleCustom(
-                                                            context: context,
-                                                            fontSize: 10.0,
-                                                          )),
-                                                    ],
-                                                  ),
-                                                ),
+                                                );
+                                              }),
+                                        );
+                                      } else {
+                                        return SizedBox(
+                                            height: 125.h,
+                                            width: 150.w,
+                                            child: Center(
+                                              child: Column(
+                                                children: [
+                                                  Image.asset(
+                                                      "assets/images/empty_box.png",
+                                                      width: 100.w,
+                                                      height: 80.h),
+                                                  Text(
+                                                    AppStrings.listEmpty.tr(),
+                                                    style: textStyleCustom(
+                                                      context: context,
+                                                      fontSize: 15.sp,
+                                                    ),
+                                                  )
+                                                ],
                                               ),
-                                            );
-                                          }),
-                                    );
-                                  } else {
-                                    return SizedBox(
-                                        height: 125.h,
-                                        width: 150.w,
-                                        child: Center(
-                                          child: Column(
-                                            children: [
-                                              Image.asset(
-                                                  "assets/images/empty_box.png",
-                                                  width: 100.w,
-                                                  height: 80.h),
-                                              Text(
-                                                AppStrings.listEmpty.tr(),
-                                                style: textStyleCustom(
-                                                  context: context,
-                                                  fontSize: 15.sp,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ));
-                                  }
-                                } else if (state
+                                            ));
+                                      }
+                                    } else if (state
                                     is SuccessSendExistingPaymentAddressState) {
-                                  print(
-                                      "-----------------------------------------");
-                                } else if (state
+                                      print(
+                                          "-----------------------------------------");
+                                    } else if (state
                                     is LoadingPaymentAddressState) {
-                                  Center(
-                                      child: CircularProgressIndicator(
-                                    color: AppColor.primaryAmwaj,
-                                  ));
-                                } else if (state is ErrorPaymentAddressState) {
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((timeStamp) {
-                                    customAwesomeDialog(
-                                        context,
-                                        state.error.toString(),
-                                        DialogType.error);
-                                  });
-                                }
-                                return Center(
-                                    child: CircularProgressIndicator(
-                                  color: AppColor.primaryAmwaj,
-                                ));
-                              }),
+                                      Center(
+                                          child: CircularProgressIndicator(
+                                            color: AppColor.primaryAmwaj,
+                                          ));
+                                    } else if (state is ErrorPaymentAddressState) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((timeStamp) {
+                                        customAwesomeDialog(
+                                            context,
+                                            state.error.toString(),
+                                            DialogType.error);
+                                      });
+                                    }
+                                    return Center(
+                                        child: CircularProgressIndicator(
+                                          color: AppColor.primaryAmwaj,
+                                        ));
+                                  }),
                               Divider(
                                 height: 5.h,
                                 color: AppColor.primaryAmwaj,
@@ -1178,26 +1204,26 @@ class _SettingScreenState extends State<SettingScreen> {
                                             PaymentAddressStates>(
                                           builder: (context, state) {
                                             if (state
-                                                is SuccessSaveNewPaymentAddressState) {
+                                            is SuccessSaveNewPaymentAddressState) {
                                               showToast(
-                                                      text: AppStrings
-                                                          .addSuccessfully
-                                                          .tr(),
-                                                      color:
-                                                          ToastColors.SUCCESS)
+                                                  text: AppStrings
+                                                      .addSuccessfully
+                                                      .tr(),
+                                                  color:
+                                                  ToastColors.SUCCESS)
                                                   .then((value) {
                                                 AppRouter.back(context);
                                               });
                                             } else if (state
-                                                is ErrorPaymentAddressState) {
+                                            is ErrorPaymentAddressState) {
                                               WidgetsBinding.instance
                                                   .addPostFrameCallback(
                                                       (timeStamp) {
-                                                customAwesomeDialog(
-                                                    context,
-                                                    state.error.toString(),
-                                                    DialogType.error);
-                                              });
+                                                    customAwesomeDialog(
+                                                        context,
+                                                        state.error.toString(),
+                                                        DialogType.error);
+                                                  });
                                             }
                                             return SingleChildScrollView(
                                                 child: CustomPaymentAddress());
@@ -1254,10 +1280,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                   child: GridView.builder(
                                     itemCount: colors.length,
                                     gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3,
-                                            crossAxisSpacing: 3.0,
-                                            mainAxisSpacing: 3.0),
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 3.0,
+                                        mainAxisSpacing: 3.0),
                                     itemBuilder: (context, index) {
                                       return Center(
                                         child: InkWell(
@@ -1265,20 +1291,23 @@ class _SettingScreenState extends State<SettingScreen> {
                                             context
                                                 .read<ThemeDataCubit>()
                                                 .changeThemeDataCubit(
-                                                    colors[index]);
+                                                colors[index]);
                                             SharedHelper.sharedPreferences
                                                 .setInt(AppStrings.saveTheme,
-                                                    colors[index].value);
+                                                colors[index].value);
                                             AppRouter.back(context);
                                           },
                                           child: Container(
                                             height: 65.h,
                                             width: 65.w,
+                                            child: index == 0 ?  Center(child: Text(AppStrings.primary.tr(),
+                                              style: mediumTextStyle(fontSize: 12.sp, color: AppColor.white),
+                                            )):Text(""),
                                             decoration: BoxDecoration(
                                                 color: colors[index],
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        50.r)),
+                                                BorderRadius.circular(
+                                                    50.r)),
                                           ),
                                         ),
                                       );
@@ -1312,10 +1341,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                               context
                                                   .read<ThemeDataCubit>()
                                                   .changeThemeDataCubit(
-                                                      pickerColor1);
+                                                  pickerColor1);
                                               SharedHelper.sharedPreferences
                                                   .setInt(AppStrings.saveTheme,
-                                                      pickerColor1.value);
+                                                  pickerColor1.value);
 
                                               AppRouter.back(context);
 
@@ -1324,40 +1353,40 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 context: context,
                                                 builder: (context) =>
                                                     AlertDialog(
-                                                  title: Text(
-                                                      AppStrings.color2.tr()),
-                                                  content:
+                                                      title: Text(
+                                                          AppStrings.color2.tr()),
+                                                      content:
                                                       SingleChildScrollView(
-                                                    child: ColorPicker(
-                                                      pickerColor: pickerColor2,
-                                                      onColorChanged:
+                                                        child: ColorPicker(
+                                                          pickerColor: pickerColor2,
+                                                          onColorChanged:
                                                           changeColor2,
-                                                    ),
-                                                  ),
-                                                  actions: <Widget>[
-                                                    ElevatedButton(
-                                                      child: Text(
-                                                          AppStrings.ok.tr()),
-                                                      onPressed: () {
-                                                        // setState(() =>
-                                                        //     currentColor =
-                                                        //         pickerColor2);
-                                                        context
-                                                            .read<
+                                                        ),
+                                                      ),
+                                                      actions: <Widget>[
+                                                        ElevatedButton(
+                                                          child: Text(
+                                                              AppStrings.ok.tr()),
+                                                          onPressed: () {
+                                                            // setState(() =>
+                                                            //     currentColor =
+                                                            //         pickerColor2);
+                                                            context
+                                                                .read<
                                                                 ThemeDataCubit>()
-                                                            .changeSecondColor(
+                                                                .changeSecondColor(
                                                                 pickerColor2);
-                                                        SharedHelper.sharedPreferences
-                                                            .setInt(
+                                                            SharedHelper.sharedPreferences
+                                                                .setInt(
                                                                 AppStrings
                                                                     .saveSecondColor,
                                                                 pickerColor2
                                                                     .value);
-                                                        AppRouter.back(context);
-                                                      },
+                                                            AppRouter.back(context);
+                                                          },
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
                                               );
                                             },
                                           ),
@@ -1385,28 +1414,51 @@ class _SettingScreenState extends State<SettingScreen> {
           CustomTile(
               title: AppStrings.changeTemplate.tr(),
               onClick: () {
-                showDialog(context: context, builder:(context)=> CustomAlertDialog(
-                  title: AppStrings.changeTemplate.tr(),
-                  image: "settings-Bold-1.svg",
-                  widget: Container(
-                    height: 80.h,
-                    width: 180.w,
-                    child: Column(
-                      children: [
-                        CustomButton(onPressed: (){
-                          SharedHelper.sharedPreferences.setInt(AppStrings.template, 1);
-                          AppRouter.offNamed(context,RouteConstants.splash);
-                        },color: AppColor.spareTKTemplate,height: 30.h,width: 150.w,radius: 5.r,title: AppStrings.template1.tr()),
-                        SizedBox(height: 15.h,),
-                        CustomButton(onPressed: (){
-                          SharedHelper.sharedPreferences.setInt(AppStrings.template, 2);
-                          AppRouter.backToFirstScreen(context);
-                        },color: AppColor.spareTKTemplate,height: 30.h,width: 150.w,radius: 5.r,title: AppStrings.template2.tr()),
-
-                      ],
-                    ),
-                  ),
-                ));
+                showDialog(
+                    context: context,
+                    builder: (context) => CustomAlertDialog(
+                      title: AppStrings.changeTemplate.tr(),
+                      image: "settings-Bold-1.svg",
+                      widget: Container(
+                        height: 100.h,
+                        width: 180.w,
+                        child: Column(
+                          children: [
+                            CustomButton(
+                                onPressed: () {
+                                  SharedHelper.sharedPreferences
+                                      .setInt(AppStrings.template, 1);
+                                  if (templateCheck == 1) {
+                                    print("-------------- 1");
+                                    AppRouter.back(context);
+                                  }
+                                },
+                                color: AppColor.primaryAmwaj,
+                                height: 35.h,
+                                width: 150.w,
+                                radius: 20.r,
+                                title: AppStrings.template1.tr()),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            CustomButton(
+                                onPressed: () {
+                                  print("-------------- 2");
+                                  SharedHelper.sharedPreferences.setInt(AppStrings.template, 2);
+                                  Navigator.of(context)
+                                      .pushNamedAndRemoveUntil(
+                                      RouteConstants.splash,
+                                          (route) => false);
+                                },
+                                color: AppColor.primaryAmwaj,
+                                height: 30.h,
+                                width: 150.w,
+                                radius: 20.r,
+                                title: AppStrings.template2.tr()),
+                          ],
+                        ),
+                      ),
+                    ));
                 // AppRouter.offNamed(context, RouteConstants.mainNewTemplate);
               },
               icon: Icons.track_changes,
@@ -1419,35 +1471,35 @@ class _SettingScreenState extends State<SettingScreen> {
                   context: context,
                   builder: (context) =>
                       BlocBuilder<ChangeTextColorCubit, Color>(
-                    builder: (context, state) {
-                      pickFontColor = state;
-                      print("************************ Color State  || $state");
-                      return AlertDialog(
-                        title: Text(AppStrings.ChangeTextColor.tr()),
-                        content: SingleChildScrollView(
-                          child: ColorPicker(
-                            pickerColor: state,
-                            onColorChanged: ChangeTextColor,
-                          ),
-                        ),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            child: Text(AppStrings.ok.tr()),
-                            onPressed: () {
-                              setState(() => currentColor = pickFontColor);
-                              context
-                                  .read<ChangeTextColorCubit>()
-                                  .changeColor(pickFontColor);
-                              SharedHelper.sharedPreferences.setInt(
-                                  AppStrings.ChangeTextColor,
-                                  pickFontColor.value);
-                              AppRouter.back(context);
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                        builder: (context, state) {
+                          pickFontColor = state;
+                          print("************************ Color State  || $state");
+                          return AlertDialog(
+                            title: Text(AppStrings.ChangeTextColor.tr()),
+                            content: SingleChildScrollView(
+                              child: ColorPicker(
+                                pickerColor: state,
+                                onColorChanged: ChangeTextColor,
+                              ),
+                            ),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                child: Text(AppStrings.ok.tr()),
+                                onPressed: () {
+                                  setState(() => currentColor = pickFontColor);
+                                  context
+                                      .read<ChangeTextColorCubit>()
+                                      .changeColor(pickFontColor);
+                                  SharedHelper.sharedPreferences.setInt(
+                                      AppStrings.ChangeTextColor,
+                                      pickFontColor.value);
+                                  AppRouter.back(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                 );
               },
               icon: Icons.text_fields,
@@ -1467,165 +1519,246 @@ class _SettingScreenState extends State<SettingScreen> {
                 showDialog(
                     context: context,
                     builder: (context) => BlocProvider(
-                          create: (context) => ContactCubit(instance()),
-                          child: BlocBuilder<ContactCubit, ContactStates>(
-                            builder: (context, state) {
-                              if (state is ContactSuccessState) {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((timeStamp) {
-                                  customAwesomeDialog(
-                                      context,
-                                      AppStrings.sendDataSuccessfully.tr(),
-                                      DialogType.success);
-                                });
-                              } else if (state is ContactErrorState) {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((timeStamp) {
-                                  customAwesomeDialog(context,
-                                      state.e.toString(), DialogType.error);
-                                });
-                              }
-                              return Stack(
-                                children: [
-                                  CustomAlertDialog(
-                                    widget: Container(
-                                      height: 300.h,
-                                      width: 350.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(20.r),
-                                        color: AppColor.white,
-                                      ),
-                                      child: Form(
-                                        key: _keyContact,
-                                        child: Column(
-                                          children: [
-                                            CustomTextField(
-                                              containerColor: AppColor.white,
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color:
-                                                        AppColor.primaryAmwaj,
-                                                    width: 0.5),
-                                              ),
-                                              focusedBorder:
-                                                  const OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey,
-                                                    width: 0.5),
-                                              ),
-                                              height: 60.h,
-                                              borderColor:
-                                                  AppColor.primaryAmwaj,
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                              ),
-                                              radius: 10.r,
-                                              controller: _name,
-                                              validator: (value) {
-                                                if (value!.isEmpty) {
-                                                  return AppStrings.required
-                                                      .tr();
-                                                }
-                                                return null;
-                                              },
-                                              hintText: AppStrings.name.tr(),
-                                            ),
-                                            SizedBox(
-                                              height: 5.h,
-                                            ),
-                                            CustomTextField(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color:
-                                                        AppColor.primaryAmwaj,
-                                                    width: 0.5),
-                                              ),
-                                              focusedBorder:
-                                                  const OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey,
-                                                    width: 0.5),
-                                              ),
-                                              height: 60.h,
-                                              radius: 10.r,
-                                              controller: _email,
-                                              validator: (value) {
-                                                if (value!.isEmpty) {
-                                                  return AppStrings.required
-                                                      .tr();
-                                                }
-                                                return null;
-                                              },
-                                              hintText: AppStrings.email.tr(),
-                                              containerColor: AppColor.white,
-                                            ),
-                                            SizedBox(
-                                              height: 5.h,
-                                            ),
-                                            CustomTextField(
-                                              // enabled: true,
-                                              // filled: true,
-                                              containerColor: AppColor
-                                                  .primaryLight
-                                                  .withOpacity(0.2),
-                                              height: 100.h,
-                                              radius: 10.r,
-                                              controller: _body,
-                                              validator: (value) {
-                                                if (value!.isEmpty) {
-                                                  return AppStrings.required
-                                                      .tr();
-                                                }
-                                                return null;
-                                              },
-                                              hintText:
-                                                  AppStrings.comments.tr(),
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            CustomButton(
-                                              onPressed: () {
-                                                context
-                                                    .read<ContactCubit>()
-                                                    .sendContactCubit({
-                                                  "name": _name!.text,
-                                                  "email": _email!.text,
-                                                  "enquiry": _body!.text
-                                                });
-                                              },
-                                              width: 100.w,
-                                              height: 30.h,
-                                              color: context
-                                                      .read<ThemeDataCubit>()
-                                                      .recolor ??
-                                                  AppColor.primaryAmwaj,
-                                              radius: 20.r,
-                                              title: AppStrings.save.tr(),
-                                              textStyle: textStyleCustom(
-                                                context: context,
-                                                fontSize: 15.sp,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    title: AppStrings.contactUs.tr(),
-                                    image: 'comment-dots-Bold.svg',
+                      create: (context) => ContactCubit(instance()),
+                      child: BlocBuilder<ContactCubit, ContactStates>(
+                        builder: (context, state) {
+                          if (state is ContactSuccessState) {
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((timeStamp) {
+                              customAwesomeDialog(
+                                  context,
+                                  AppStrings.sendDataSuccessfully.tr(),
+                                  DialogType.success);
+                            });
+                          } else if (state is ContactErrorState) {
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((timeStamp) {
+                              customAwesomeDialog(context,
+                                  state.e.toString(), DialogType.error);
+                            });
+                          }
+                          return Stack(
+                            children: [
+                              CustomAlertDialog(
+                                widget: Container(
+                                  height: 190.h,
+                                  width: 200.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(20.r),
+                                    color: AppColor.white,
                                   ),
-                                  if (state is ContactLoadingState)
-                                    Center(
-                                        child: CircularProgressIndicator(
+                                  child: Form(
+                                    key: _keyContact,
+                                    child: Column(
+                                      children: [
+                                        CustomTextField(
+                                          containerColor: AppColor.white,
+                                          width: 190.w,
+                                          height: 35.h,
+                                          radius: 20.r,
+                                          hintText: "",
+                                          controller: _name,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return AppStrings.required
+                                                  .tr();
+                                            }
+                                            return null;
+                                          },
+                                          focusedBorder:
+                                          OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10.r),
+                                              borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj,
+                                              )),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  10.r),
+                                              borderSide: BorderSide(
+                                                  color: AppColor
+                                                      .primaryAmwaj)),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  10.r),
+                                              borderSide: BorderSide(
+                                                  color: AppColor
+                                                      .primaryAmwaj)),
+                                          disabledBorder:
+                                          OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10.r),
+                                              borderSide: BorderSide(
+                                                  color: AppColor
+                                                      .primaryAmwaj)),
+                                          labelText:
+                                          AppStrings.name.tr(),
+                                          borderColor:
+                                          AppColor.primaryAmwaj,
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
+                                        ),
+                                        CustomTextField(
+                                          containerColor: AppColor.white,
+                                          width: 190.w,
+                                          height: 35.h,
+                                          radius: 20.r,
+                                          hintText: "",
+                                          controller: _email,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return AppStrings.required
+                                                  .tr();
+                                            }
+                                            return null;
+                                          },
+                                          focusedBorder:
+                                          OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10.r),
+                                              borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj,
+                                              )),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  10.r),
+                                              borderSide: BorderSide(
+                                                  color: AppColor
+                                                      .primaryAmwaj)),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  10.r),
+                                              borderSide: BorderSide(
+                                                  color: AppColor
+                                                      .primaryAmwaj)),
+                                          disabledBorder:
+                                          OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10.r),
+                                              borderSide: BorderSide(
+                                                  color: AppColor
+                                                      .primaryAmwaj)),
+                                          labelText:
+                                          AppStrings.email.tr(),
+                                          borderColor:
+                                          AppColor.primaryAmwaj,
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
+                                        ),
+                                        CustomTextField(
+                                          containerColor: AppColor.white,
+                                          width: 190.w,
+                                          height: 60.h,
+                                          radius: 20.r,
+                                          hintText: AppStrings.comments.tr(),
+                                          controller: _body,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return AppStrings.required
+                                                  .tr();
+                                            }
+                                            return null;
+                                          },
+                                          errorBorder:  OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10.r),
+                                              borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj,
+                                              )),
+                                          focusedBorder:
+                                          OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10.r),
+                                              borderSide: BorderSide(
+                                                color: AppColor
+                                                    .primaryAmwaj,
+                                              )),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  10.r),
+                                              borderSide: BorderSide(
+                                                  color: AppColor
+                                                      .primaryAmwaj)),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  10.r),
+                                              borderSide: BorderSide(
+                                                  color: AppColor
+                                                      .primaryAmwaj)),
+                                          disabledBorder:
+                                          OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10.r),
+                                              borderSide: BorderSide(
+                                                  color: AppColor
+                                                      .primaryAmwaj)),
+                                          // labelText:
+                                          // AppStrings.comments.tr(),
+                                          borderColor:
+                                          AppColor.primaryAmwaj,
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        CustomButton(
+                                          onPressed: () {
+                                            context
+                                                .read<ContactCubit>()
+                                                .sendContactCubit({
+                                              "name": _name!.text,
+                                              "email": _email!.text,
+                                              "enquiry": _body!.text
+                                            });
+                                          },
+                                          width: 100.w,
+                                          height: 30.h,
+                                          color: context
+                                              .read<ThemeDataCubit>()
+                                              .recolor ??
+                                              AppColor.primaryAmwaj,
+                                          radius: 20.r,
+                                          title: AppStrings.save.tr(),
+                                          textStyle: textStyleCustom(
+                                            context: context,
+                                            fontSize: 15.sp,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                title: AppStrings.contactUs.tr(),
+                                image: 'comment-dots-Bold.svg',
+                              ),
+                              if (state is ContactLoadingState)
+                                Center(
+                                    child: CircularProgressIndicator(
                                       color: AppColor.primaryAmwaj,
                                     )),
-                                ],
-                              );
-                            },
-                          ),
-                        ));
+                            ],
+                          );
+                        },
+                      ),
+                    ));
               },
               icon: Icons.contact_support_outlined,
               iconColor: AppColor.white),

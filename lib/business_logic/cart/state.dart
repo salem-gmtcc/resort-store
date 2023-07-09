@@ -21,6 +21,10 @@ class SuccessAddCartState extends CartStates {
   SuccessAddCartState({required this.sendDataToCart});
 }
 
+
+class SuccessUpdateItemCart extends CartStates {}
+
+
 //TODO: DELETE ITEM FROM CART
 class SuccessDeleteItemFromCartState extends CartStates {
   final CartModel cartModel;

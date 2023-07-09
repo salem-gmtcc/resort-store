@@ -40,6 +40,7 @@ class AppStrings {
   static const String to = "to";
   static const String fullName = "fullName";
   static const String password = "password";
+  static const String welcomeBack = "welcomeBack";
   static const String confirmPassword = "confirmPassword";
   static const String forgetPassword = "forgetPassword";
   static const String resetPassword = "resetPassword";
@@ -47,6 +48,7 @@ class AppStrings {
   static const String language = "language";
   static const String listEmpty = "listEmpty";
   static const String code = "code";
+  static const String primary = "primary";
   static const String currencyCode = "currencyCode";
   static const String Default = "Default";
   static const String productImage = "productImage";

@@ -12,18 +12,15 @@ class BuildTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onClick,
-      child: Padding(
-        padding:  EdgeInsets.only(bottom: 5.h,top: 3.h),
-        child: Container(
-          height: 20.h,
-          child: ListTile(
-            title: Text(name!,style: mediumTextStyle(fontSize: 12.sp,
-                color: AppColor.spareTKTemplate.withOpacity(0.5))),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              size: 12.sp,
-              color: AppColor.colorGreyLight,
-            ),
+      child: Container(
+        height: 20.h,
+        child: ListTile(
+          title: Text(name!,style: mediumTextStyle(fontSize: 12.sp,
+              color: AppColor.primaryAmwaj.withOpacity(0.5))),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            size: 12.sp,
+            color: AppColor.colorGreyLight,
           ),
         ),
       ),

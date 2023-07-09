@@ -13,7 +13,7 @@ class BuildTextIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20.h,
+      height: 30.h,
       width: 190.w,
       child: Padding(
         padding:  EdgeInsets.only(
@@ -24,9 +24,9 @@ class BuildTextIcon extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset("assets/icons/$icon"),
+            SvgPicture.asset("assets/icons/$icon",height: 22.h,width: 30.w,color:AppColor.primaryAmwaj ),
             SizedBox(width: 5.w),
-            Text(name!,style: boldTextStyle(fontSize: 12.sp, color: AppColor.spareTKTemplate),)
+            Text(name!,style: boldTextStyle(fontSize: 12.sp, color: AppColor.primaryAmwaj),)
           ],
         ),
       ),

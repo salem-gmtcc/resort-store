@@ -42,25 +42,24 @@ class ProductService {
   //TODO : GET BestSeller
   Future<dynamic> getBestSellerProductService() async {
 
-
     final response = await _apiClient
         .get(ApiConstants.indexPhp, baseUrl: ApiConstants.baseUrl, headers: HeaderApis.headers, parameters: {
       ApiConstants.route: "${ApiConstants.feed}/bestsellers",
       "limit": "10"
     });
+
     if (response.body.isNotEmpty) {
       return Future(() => response.body);
     } else {
       return Future(() => null);
     }
+
   }
 
   //TODO : GET product Details
   Future<dynamic> getProductDetailsService(String id) async {
 
-
-    final response = await _apiClient
-        .get(ApiConstants.indexPhp, baseUrl: ApiConstants.baseUrl, headers: HeaderApis.headers, parameters: {
+    final response = await _apiClient.get(ApiConstants.indexPhp, baseUrl: ApiConstants.baseUrl, headers: HeaderApis.headers, parameters: {
       ApiConstants.route: "${ApiConstants.feed}/products",
       "id": id
     });
@@ -75,8 +74,7 @@ class ProductService {
   Future<dynamic> getProductRelatedService(String id) async {
 
 
-    final response = await _apiClient
-        .get(ApiConstants.indexPhp, baseUrl: ApiConstants.baseUrl, headers: HeaderApis.headers, parameters: {
+    final response = await _apiClient.get(ApiConstants.indexPhp, baseUrl: ApiConstants.baseUrl, headers: HeaderApis.headers, parameters: {
       ApiConstants.route: "${ApiConstants.feed}/related",
       "id": id
     });
@@ -124,7 +122,6 @@ class ProductService {
   }
 
   //TODO : Get Featured Product
-
   Future<List<dynamic>> getFeaturedProductService() async {
      print("**************************** Currency Code ${HeaderApis.currencyCode}");
     final response = await _apiClient.get(ApiConstants.indexPhp, baseUrl: ApiConstants.baseUrl,

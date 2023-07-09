@@ -56,7 +56,7 @@ class BuildItemProduct extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(left: 5.w, right: 5.w),
         child: Container(
-          height: 200.h,
+          height: 230.h,
           width: 150.w,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.r),
@@ -70,7 +70,7 @@ class BuildItemProduct extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(5.sp),
                 child: Container(
-                  height: 100.h,
+                  height: 90.h,
                   width: 140.w,
                   decoration: BoxDecoration(
                     color: AppColor.white,
