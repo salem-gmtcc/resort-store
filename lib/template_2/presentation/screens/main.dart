@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:resort_store/core/constants/route_constant.dart';
 import 'package:resort_store/presentation/resources/color_manger.dart';
 import 'package:resort_store/presentation/screens/comparison/comparison.dart';
@@ -27,77 +28,123 @@ class MainNewTemplate extends StatefulWidget {
 class _MainNewTemplateState extends State<MainNewTemplate> {
   Item _selectedItem = items[2];
   late final double _itemWidth;
+  //
+  // @override
+  // void didChangeDependencies() {
+  //   _itemWidth = MediaQuery.of(context).size.width / 5.w;
+  //   super.didChangeDependencies();
+  // }
 
-  @override
-  void didChangeDependencies() {
-    _itemWidth = MediaQuery.of(context).size.width / 5.w;
-    super.didChangeDependencies();
-  }
+
+
+
+  List<Widget> screens = [
+    CartTemplateScreen(),
+    FavouriteTemplateScreen(),
+    HomeTemplateScreen(),
+    CompareTemplateScreen() ,
+    SettingTemplateScreen(),
+  ];
+
+
+  int index = 2 ;
+  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body:_selectedItem.screen,
-      bottomNavigationBar: SizedBox(
-        height: 70,
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: 45.h,
-              child: Container(
-                color: AppColor.primaryAmwaj,
-              ),
-            ),
-            ...items
-                .map(
-                  (item) => Positioned(
-                    left: _getxAxis(item.xAxis),
-                    top: 10,
-                    bottom: 0,
-                    child: IconButton(
-                      onPressed:  () {
-                        //  print("----------------- 1");
-                        // context.read<MainTemplateCubit>().changeBottomNavigator(item);
-                        //  print("----------------- 2");
-                        print("/*****//*/*");
-                        print(_selectedItem.title);
-                        setState(() {
-                          _selectedItem = item;
-                        });
-                      },
-                      icon:_selectedItem == item
-                          ?  const SizedBox.shrink()
-                          : SvgPicture.asset(
-                              item.icon,
-                              width: 24,
-                              color: Colors.white,
-                            ),
-                    ),
-                  ),
-                )
-                .toList(),
-            AnimatedPositioned(
-              left: _getxAxis(_selectedItem.xAxis),
-              duration: const Duration(milliseconds: 200),
-              child: FloatingActionButton(
-                onPressed: () {
-                  print("-------------------------------||");
-                },
-                backgroundColor: AppColor.primaryAmwaj,
-                child: SvgPicture.asset(
-                  _selectedItem.icon,
-                  width: 22,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
+      key: _scaffoldkey,
+      body:screens[index],
+      resizeToAvoidBottomInset: false,
+      bottomNavigationBar: ConvexAppBar(
+        height: 45.h,
+        backgroundColor: AppColor.primaryAmwaj,
+        // curveSize: 100.sp,
+        color: AppColor.white1,
+        elevation: 5.0,
+        activeColor: AppColor.white,
+        style: TabStyle.reactCircle,
+        // cornerRadius: 20.r,
+        initialActiveIndex: 2,
+        curve: Curves.bounceIn,
+        onTap: (int index) {
+
+          setState(() {
+            this.index = index;
+          });
+
+        },
+        // top: 10.0.sp,
+        items: [
+
+          TabItem(icon: Icons.shopping_cart_outlined, title: AppStrings.myPag.tr()),
+          TabItem(icon: Icons.favorite_border, title: AppStrings.favourite.tr()),
+          TabItem(icon: Icons.home, title: AppStrings.home.tr()),
+          TabItem(icon: Icons.compare_arrows, title: AppStrings.comparison.tr()),
+          TabItem(icon: Icons.menu, title: AppStrings.setting.tr()),
+
+        ],
       ),
+      // bottomNavigationBar: SizedBox(
+      //   height: 70,
+      //   child: Stack(
+      //     children: [
+      //       Positioned(
+      //         bottom: 0,
+      //         left: 0,
+      //         right: 0,
+      //         height: 45.h,
+      //         child: Container(
+      //           color: AppColor.spareTKTemplate,
+      //         ),
+      //       ),
+      //       ...items
+      //           .map(
+      //             (item) => Positioned(
+      //               left: _getxAxis(item.xAxis),
+      //               top: 10,
+      //               bottom: 0,
+      //               child: IconButton(
+      //                 onPressed:  () {
+      //                   //  print("----------------- 1");
+      //                   // context.read<MainTemplateCubit>().changeBottomNavigator(item);
+      //                   //  print("----------------- 2");
+      //                   print("/*****//*/*");
+      //                   print(_selectedItem.title);
+      //                   setState(() {
+      //                     _selectedItem = item;
+      //                   });
+      //                 },
+      //                 icon:_selectedItem == item
+      //                     ?  const SizedBox.shrink()
+      //                     : SvgPicture.asset(
+      //                         item.icon,
+      //                         width: 24,
+      //                         color: Colors.white,
+      //                       ),
+      //               ),
+      //             ),
+      //           )
+      //           .toList(),
+      //       AnimatedPositioned(
+      //         left: _getxAxis(_selectedItem.xAxis),
+      //         duration: const Duration(milliseconds: 200),
+      //         child: FloatingActionButton(
+      //           onPressed: () {
+      //             print("-------------------------------||");
+      //           },
+      //           backgroundColor: AppColor.spareTKTemplate,
+      //           child: SvgPicture.asset(
+      //             _selectedItem.icon,
+      //             width: 22,
+      //             color: Colors.white,
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 

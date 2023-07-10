@@ -34,7 +34,6 @@ class FavouriteItem extends StatelessWidget {
         color: AppColor.white,
       ),
       width: 220.w,
-      height: 100.h,
       child: Padding(
         padding: EdgeInsets.only(right: 5.sp, left: 5.sp),
         child: Row(
@@ -78,30 +77,27 @@ class FavouriteItem extends StatelessWidget {
                     children: [
 
                       SizedBox(
-                        height: 10.h,
+                        height: 5.h,
                       ),
 
                       Container(
                         height: 25.h,
                         width: 150.w,
-                        child: Center(
-                          child: Text(name!,
-                              style: TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                  fontSize: 12.sp,
-                                  color: AppColor.black,
-                                  height: 0.5.h)),
-                        ),
+                        child: Text(name!,
+                            style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 15.sp,
+                              color: AppColor.black,)),
                       ),
 
                       Text("${AppStrings.price.tr()} ${price!}",
                           style: mediumTextStyle(
-                              fontSize: 10.sp,
-                              color: AppColor.spareTKTemplate,
-                              height: 1.h)),
+                            fontSize: 10.sp,
+                            color: AppColor.spareTKTemplate,
+                          )),
 
                       SizedBox(
-                        height: 10.h,
+                        height: 5.h,
                       ),
 
                       BlocProvider(
@@ -132,11 +128,11 @@ class FavouriteItem extends StatelessWidget {
                                         "quantity": "1"
                                       });
                                     },
-                                    textStyle: textStyleCustom(
-                                        fontSize: 10.sp,
-                                        fontColor: AppColor.white
+                                    textStyle: mediumTextStyle(
+                                        fontSize: 9.sp,
+                                        color: AppColor.white
                                     ),
-                                    height: 30.h,
+                                    height: 25.h,
                                     width: 80.w,
                                     title: AppStrings.addToCart.tr(),
                                     color: context.read<ThemeDataCubit>().recolor ??
@@ -183,11 +179,12 @@ class FavouriteItem extends StatelessWidget {
                       print(rating);
                     },
                   ),
-                  SizedBox(height: 16.h),
+                  SizedBox(height: 15.h),
                   IconButton(
                       onPressed: onClick,
                       icon: Icon(
                         Icons.delete_outline,
+                        size: 25.sp,
                         color: AppColor.spareTKTemplate,
                       ))
                 ],

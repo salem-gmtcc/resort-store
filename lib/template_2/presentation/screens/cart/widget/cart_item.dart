@@ -1,17 +1,17 @@
-import 'package:resort_store/core/constants/strings_app.dart';
-import 'package:resort_store/presentation/resources/color_manger.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../../business_logic/cart/cubit.dart';
-import '../../../../../business_logic/cart/state.dart';
 import '../../../../../business_logic/counter/cubit.dart';
+import '../../../../../core/constants/strings_app.dart';
+import '../../../../../presentation/resources/color_manger.dart';
 import '../../../../../presentation/resources/textStyle_manger.dart';
 import '../../../../../presentation/widgets/custom_padding.dart';
 
-class NewTemplateCartItem extends StatelessWidget {
+
+class NewTemplateCartItem extends StatefulWidget {
   String? productKey, title, image, price, quantity,taxAmount;
   num? totalRaw;
 
@@ -24,6 +24,12 @@ class NewTemplateCartItem extends StatelessWidget {
     required this.taxAmount,
     required this.totalRaw,
   });
+
+  @override
+  State<NewTemplateCartItem> createState() => _NewTemplateCartItemState();
+}
+
+class _NewTemplateCartItemState extends State<NewTemplateCartItem> {
   int qty = 1;
 
   @override
@@ -34,7 +40,6 @@ class NewTemplateCartItem extends StatelessWidget {
         color: AppColor.white,
       ),
       width: 200.w,
-      height: 100.h,
       child: Padding(
         padding: EdgeInsets.only(right: 5.sp, left: 5.sp),
         child: Row(
@@ -57,7 +62,7 @@ class NewTemplateCartItem extends StatelessWidget {
                           fit: BoxFit.cover,
                           opacity: 0.8,
                           image: NetworkImage(
-                            image!,
+                            widget.image!,
                           )),
                       borderRadius: BorderRadius.circular(15.r),
                     ),
@@ -71,40 +76,36 @@ class NewTemplateCartItem extends StatelessWidget {
                 ),
                 //TODO: NAME AND PRICE
                 Container(
-                  height: 95.h,
+                  width: 150.w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 12.h,
+                        height: 6.h,
                       ),
-                      Container(
-                        width: 150.w,
-
-                        child: Text(title!,
-                            overflow: TextOverflow.ellipsis,
-                            style: mediumTextStyle(
-                                fontSize: 15.sp,
-                                color: AppColor.black,
-                                height: 0.5.h)),
-                      ),
-                      Text("${AppStrings.price.tr()}: ${price!}",
+                      Text(widget.title!,
+                          overflow: TextOverflow.ellipsis,
+                          style: mediumTextStyle(
+                              fontSize: 12.sp,
+                              color: AppColor.black,
+                              height: 0.0.h)),
+                      Text("${AppStrings.price.tr()}: ${widget.price!}",
                           style: mediumTextStyle(
                               fontSize: 10.sp,
-                              color: AppColor.primaryAmwaj,
-                              height: 1.h)),
-                      Text("${AppStrings.tax.tr()} $taxAmount",
+                              color: AppColor.spareTKTemplate,
+                              height: 0.0.h)),
+                      Text("${AppStrings.tax.tr()} ${widget.taxAmount}",
                           style: mediumTextStyle(
                               fontSize: 10.sp,
-                              color: AppColor.primaryAmwaj,
-                              height: 1.h)),
+                              color: AppColor.spareTKTemplate,
+                              height: 0.0.h)),
                       SizedBox(
-                        height: 10.h,
+                        height: 5.h,
                       ),
                       Container(
-                        width: 75.w,
-                        height: 25.h,
+                        width: 100.w,
+                        height: 30.h,
                         child: CustomPadding.symmetric(
                           horizontal: 5.sp,
                           child: Row(
@@ -112,36 +113,47 @@ class NewTemplateCartItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                  height: 15.h,
-                                  width: 20.w,
+                                  height: 25.h,
+                                  width: 30.w,
                                   decoration: BoxDecoration(
                                       color: AppColor.primaryAmwaj,
                                       borderRadius: BorderRadius.circular(3.r)),
                                   child: InkWell(
                                       onTap: () {
-                                        context.read<CartCubit>().increment();
+                                        setState(() {
+                                          qty = int.parse( widget.quantity!);
+                                          qty++;
+                                        });
+                                        context.read<CartCubit>().UpdateItemCart(
+                                            {
+                                              "key":widget.productKey ,
+                                              "quantity": qty
+                                            }
+                                        );
                                       },
                                       child: Icon(Icons.add,
                                           size: 15.sp, color: AppColor.white))),
-                              BlocBuilder<CartCubit, CartStates>(
-                                  builder: (context, state) {
-                                if (state is ChangeQuantityItemState) {
-                                  qty = state.qty;
-                                }
-                                return Text(qty.toString(),
-                                    style: mediumTextStyle(
-                                        fontSize: 12.0,
-                                        color: AppColor.primaryAmwaj));
-                              }),
+                              Text(widget.quantity.toString(),
+                                  style: mediumTextStyle(
+                                      fontSize: 15.0,
+                                      height: 0.0.h,
+                                      color: AppColor.spareTKTemplate)),
                               Container(
-                                  height: 15.h,
-                                  width: 20.w,
+                                  height: 25.h,
+                                  width: 30.w,
                                   decoration: BoxDecoration(
                                       color: AppColor.primaryAmwaj,
                                       borderRadius: BorderRadius.circular(5.r)),
                                   child: InkWell(
                                       onTap: () {
-                                        context.read<CartCubit>().decrement();
+                                        qty = int.parse( widget.quantity!);
+                                        qty--;
+                                        context.read<CartCubit>().UpdateItemCart(
+                                            {
+                                              "key":widget.productKey,
+                                              "quantity": qty
+                                            }
+                                        );
                                       },
                                       child: Icon(Icons.remove,
                                           size: 15.sp, color: AppColor.white))),
@@ -160,26 +172,29 @@ class NewTemplateCartItem extends StatelessWidget {
                 SizedBox(
                   height: 15.h,
                 ),
-                Text("${AppStrings.quantity.tr()}  ${quantity} x",
+                Text("${AppStrings.quantity.tr()} ${widget.quantity} x",
                     style: mediumTextStyle(
                         fontSize: 10.sp,
                         color: AppColor.colorBlackLight,
                         height: 0.5.h)),
                 SizedBox(height: 3.h,),
-                Text("${AppStrings.totalPrice.tr()} ${totalRaw.toString()}",
+                Text("${AppStrings.totalPrice.tr()} ${widget.totalRaw.toString()}",
                     style: mediumTextStyle(
                         fontSize: 10.sp,
                         color: AppColor.colorBlackLight,
                         height: 1.h)),
+
                 SizedBox(height: 20.h),
+
                 IconButton(
                     onPressed: () {
-                      context.read<CartCubit>().deleteItemFromCartCubit(productKey!);
+                      context.read<CartCubit>().deleteItemFromCartCubit(widget.productKey!);
                       context.read<CounterCubit>().removeItemCountCubit();
                     },
                     icon: Icon(
                       Icons.delete_outline,
-                      color: AppColor.primaryAmwaj,
+                      size: 25.sp,
+                      color: AppColor.spareTKTemplate,
                     ))
               ],
             )

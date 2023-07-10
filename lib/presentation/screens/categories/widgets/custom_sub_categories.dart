@@ -46,6 +46,7 @@ class CustomSubCategories extends StatelessWidget {
               ),
               Container(
                   width: 150.w,
+
                   decoration: BoxDecoration(
                       color: AppColor.primaryLight,
                       borderRadius: BorderRadius.only(

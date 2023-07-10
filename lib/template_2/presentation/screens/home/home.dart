@@ -42,24 +42,22 @@ class HomeTemplateScreen extends StatelessWidget{
           children: [
             //TODO : TOP SCREEN
             SizedBox(
-              height: 50.h,
+              height: 40.h,
             ),
 
             //TODO : Logo SpareTK
             Center(
               child: Container(
-                  width: 150.w,
+                  width: 200.w,
                   height: 60.h,
                   child: Image.asset("assets/images/name.png",height: 50.h,width: 100.w,)),
             ),
+            SizedBox(height: 5.h,),
             //TODO: Search Container
             BlocProvider(
                 create: (context) => ProductCubit(
                     productRepository: instance<ProductRepository>()),
-                child: CustomSearchItem(180.0.h)),
-            SizedBox(
-              height: 10.h,
-            ),
+                child: CustomSearchItem(150.0.h)),
             //TODO: build Categories
             BlocProvider(
               create: (context) => CategoriesCubit(
@@ -69,7 +67,7 @@ class HomeTemplateScreen extends StatelessWidget{
                 builder: (context, state) {
                   if (state is MainCategoriesSuccessState) {
                     return Container(
-                      height: 80.h,
+                      height: 85.h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: state.mainCategories.length,
@@ -91,7 +89,7 @@ class HomeTemplateScreen extends StatelessWidget{
                             },
                             child: Padding(
                               padding: EdgeInsets.only(
-                                  right: 8.sp, left: 8.sp),
+                                  right: 5.sp, left: 5.sp),
                               child: CustomBuildCategory(
                                 image: state.mainCategories[i].image.toString(),
                                 title: state.mainCategories[i].name.toString(),
@@ -119,13 +117,7 @@ class HomeTemplateScreen extends StatelessWidget{
                   children: [
                     //TODO : Slider Carousel
                     CarouselSliderWidget(id: "9"),
-                    SizedBox(
-                      height: 5.h,
-                    ),
                     //TODO : Feature Product
-                    SizedBox(
-                      height: 5.h,
-                    ),
                     BranchTitle(
                         title: AppStrings.featuredProduct.tr(),
                         color: HexColor("#000000")),

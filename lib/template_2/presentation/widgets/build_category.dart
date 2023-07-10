@@ -11,11 +11,36 @@ class CustomBuildCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.network(image,height: 40.h,width: 40.w),
-        Text(title,style: mediumTextStyle(fontSize: 12.sp, color: AppColor.white),)
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 40.h,
+              width: 80.w,
+              child: Image.network(image,height: 30.h,width: 30.w)),
+          Container(
+            width: 80.w,
+              height: 30.h,
+              padding: EdgeInsets.zero,
+              child: Center(
+                child: Padding(
+                  padding:  EdgeInsets.only(
+                    left: 5.sp,
+                    right: 5.sp
+                  ),
+                  child: Text(title,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.visible,
+                    maxLines: 2,
+                    style: TextStyle(
+                        height: 1.h,
+                        fontSize: 10.sp, color: AppColor.white),),
+                ),
+              ))
+        ],
+      ),
     );
   }
 }
