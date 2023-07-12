@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               //TODO: Carsoul Slider
-              CarouselSliderWidget(id: "7"),
+              CarouselSliderWidget(id: "7",milliseconds: 3000),
               //TODO : Featured Product
               BranchTitle(title: AppStrings.featuredProduct.tr()),
 
@@ -242,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               //TODO: Carsoul Slider
-              CarouselSliderWidget(id: "8"),
+              CarouselSliderWidget(id: "8",milliseconds: 5000),
               // TODO : Best Seller
               BranchTitle(title: AppStrings.bestSeller.tr()),
               BlocProvider<ProductCubit>(

@@ -15,7 +15,8 @@ import '../../../../di/di.dart';
 
 class CarouselSliderWidget extends StatelessWidget {
   final String? id;
-  CarouselSliderWidget({required this.id});
+  final int? milliseconds;
+  CarouselSliderWidget({required this.id,required this.milliseconds});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -39,9 +40,9 @@ class CarouselSliderWidget extends StatelessWidget {
                       initialPage: 2,
                       enableInfiniteScroll: true,
                       autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 2),
-                      autoPlayAnimationDuration:
-                      const Duration(milliseconds: 300),
+                      autoPlayInterval:  Duration(milliseconds: milliseconds!),
+                      // autoPlayAnimationDuration:
+                      // const Duration(seconds: 5),
                       autoPlayCurve: Curves.fastOutSlowIn,
                       enlargeCenterPage: true,
                       scrollDirection: Axis.horizontal,

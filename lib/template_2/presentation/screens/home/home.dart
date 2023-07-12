@@ -24,99 +24,112 @@ import '../../../../presentation/widgets/shimmer/shimmer_categories/custom_categ
 import '../../../../presentation/widgets/shimmer/shimmer_products/custom_product_main_shimmer.dart';
 import '../../widgets/build_item_product.dart';
 
-class HomeTemplateScreen extends StatelessWidget{
-
+class HomeTemplateScreen extends StatelessWidget {
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.primaryAmwaj,
+      backgroundColor: AppColor.white,
       drawer: Container(
         width: 200.w,
         color: AppColor.white,
       ),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         child: Column(
-
           children: [
-            //TODO : TOP SCREEN
-            SizedBox(
-              height: 40.h,
-            ),
-
             //TODO : Logo SpareTK
-            Center(
-              child: Container(
-                  width: 200.w,
-                  height: 60.h,
-                  child: Image.asset("assets/images/name.png",height: 50.h,width: 100.w,)),
-            ),
-            SizedBox(height: 5.h,),
-            //TODO: Search Container
-            BlocProvider(
-                create: (context) => ProductCubit(
-                    productRepository: instance<ProductRepository>()),
-                child: CustomSearchItem(150.0.h)),
-            //TODO: build Categories
-            BlocProvider(
-              create: (context) => CategoriesCubit(
-                  categoriesRepository: instance<CategoriesRepository>())
-                ..getMainCategories(),
-              child: BlocBuilder<CategoriesCubit, CategoriesStates>(
-                builder: (context, state) {
-                  if (state is MainCategoriesSuccessState) {
-                    return Container(
-                      height: 85.h,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.mainCategories.length,
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context, i) {
-                          return InkWell(
-                            onTap: () {
+            Container(
+              color:AppColor.primaryAmwaj,
+              child: Column(
+                children: [
+                  SizedBox(height: 50.h,),
+                  Center(
+                    child: Container(
+                        width: 200.w,
+                        height: 60.h,
+                        child: Image.asset(
+                          "assets/images/name.png",
+                          height: 50.h,
+                          width: 100.w,
+                        )),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  //TODO: Search Container
+                  BlocProvider(
+                      create: (context) => ProductCubit(
+                          productRepository: instance<ProductRepository>()),
+                      child: CustomSearchItem(150.0.h)),
+                  //TODO: build Categories
+                  BlocProvider(
+                    create: (context) => CategoriesCubit(
+                        categoriesRepository: instance<CategoriesRepository>())
+                      ..getMainCategories(),
+                    child: BlocBuilder<CategoriesCubit, CategoriesStates>(
+                      builder: (context, state) {
+                        if (state is MainCategoriesSuccessState) {
+                          return Container(
+                            height: 85.h,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: state.mainCategories.length,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, i) {
+                                return InkWell(
+                                  onTap: () {
+                                    print(
+                                        "***************** enter  home ${state.mainCategories[i].subCategories}");
 
-                              print("***************** enter  home ${state.mainCategories[i].subCategories}");
+                                    print("/****");
 
-                              print("/****");
-
-                              AppRouter.to(
-                                  context, RouteConstants.subCategory,
-                                  arguments: SubCategoryScreen(
-                                    id: state.mainCategories[i].categoryId.toString(),
-                                    name: state.mainCategories[i].name,
-                                  ));
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right: 5.sp, left: 5.sp),
-                              child: CustomBuildCategory(
-                                image: state.mainCategories[i].image.toString(),
-                                title: state.mainCategories[i].name.toString(),
-                              ),
+                                    AppRouter.to(
+                                        context, RouteConstants.subCategory,
+                                        arguments: SubCategoryScreen(
+                                          id: state.mainCategories[i].categoryId
+                                              .toString(),
+                                          name: state.mainCategories[i].name,
+                                        ));
+                                  },
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(right: 5.sp, left: 5.sp),
+                                    child: CustomBuildCategory(
+                                      image:
+                                          state.mainCategories[i].image.toString(),
+                                      title:
+                                          state.mainCategories[i].name.toString(),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           );
-                        },
-                      ),
-                    );
-                  }
-                  else if (state is CategoriesLoadingState) {
-                    const CustomCategoriesMainShimmer();
-                  }
-                  return const CustomCategoriesMainShimmer();
-                },
+                        } else if (state is CategoriesLoadingState) {
+                          const CustomCategoriesMainShimmer();
+                        }
+                        return const CustomCategoriesMainShimmer();
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
+
             // TODO: ****************************************** BOTTOM SCREEN *********************************
-            SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Container(
-                color: AppColor.white,
+
+
+            Container(
+              height: 410.h,
+              color: AppColor.white,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //TODO : Slider Carousel
-                    CarouselSliderWidget(id: "9"),
+                    CarouselSliderWidget(id: "9", milliseconds: 3000),
                     //TODO : Feature Product
                     BranchTitle(
                         title: AppStrings.featuredProduct.tr(),
@@ -137,40 +150,45 @@ class HomeTemplateScreen extends StatelessWidget{
                             );
                           } else if (state is SuccessProductFeaturedState) {
                             return Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 5.0.sp),
+                              padding: EdgeInsets.symmetric(horizontal: 5.0.sp),
                               child: SizedBox(
                                 height: 160.h,
                                 child: ListView.builder(
-
                                     scrollDirection: Axis.horizontal,
-
                                     itemCount: state.products.length,
-
                                     physics: const BouncingScrollPhysics(),
-
                                     itemBuilder: (context, index) {
                                       return BuildItemProduct(
-                                        specail:state.products[index].special,
+                                        specail: state.products[index].special,
                                         id: state.products[index].productId,
-                                        image: state.products[index].thumb.toString(),
-                                        name: state.products[index].name.toString(),
-                                        price: state.products[index].priceFormat.toString(),
-                                        quantityOffers: state.products[index].quantityOffers,
-                                        priceTax: state.products[index].priceExcludingTax.toString(),
+                                        image: state.products[index].thumb
+                                            .toString(),
+                                        name:
+                                            state.products[index].name.toString(),
+                                        price: state.products[index].priceFormat
+                                            .toString(),
+                                        quantityOffers:
+                                            state.products[index].quantityOffers,
+                                        priceTax: state
+                                            .products[index].priceExcludingTax
+                                            .toString(),
                                       );
                                     }),
                               ),
                             );
                           } else if (state is ProductErrorState) {
-                            print("******************************************************* error ||  ${state.e}");
-                            showToast(text: state.e.toString(), color: ToastColors.ERROR);
+                            print(
+                                "******************************************************* error ||  ${state.e}");
+                            showToast(
+                                text: state.e.toString(),
+                                color: ToastColors.ERROR);
                           }
                           return const CustomMainProductShimmer();
                         },
                       ),
                     ),
                     //TODO : IMAGE
-                    CarouselSliderWidget(id: "7"),
+                    CarouselSliderWidget(id: "7", milliseconds: 5000),
                     SizedBox(
                       height: 5.h,
                     ),
@@ -192,38 +210,53 @@ class HomeTemplateScreen extends StatelessWidget{
                             context.read<ProductCubit>().getLatestProductCubit();
                           } else if (state is SuccessLatestProductState) {
                             return Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 5.0.sp),
+                              padding: EdgeInsets.symmetric(horizontal: 5.0.sp),
                               child: SizedBox(
                                 height: 160.h,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     physics: const BouncingScrollPhysics(),
-                                    itemCount:
-                                    state.productModel.productDataModel!.length,
+                                    itemCount: state
+                                        .productModel.productDataModel!.length,
                                     itemBuilder: (context, index) {
-
                                       return BuildItemProduct(
-                                        specail:state.productModel.productDataModel![index].special,
-                                        id: state.productModel.productDataModel![index].productId,
-                                        image: state.productModel.productDataModel![index].thumb.toString(),
-                                        name: state.productModel.productDataModel![index].name.toString(),
-                                        price: state.productModel.productDataModel![index].priceFormat.toString(),
-                                        quantityOffers: state.productModel.productDataModel![index].quantityOffers,
-                                        priceTax: state.productModel.productDataModel![index].priceExcludingTax.toString(),
+                                        specail: state.productModel
+                                            .productDataModel![index].special,
+                                        id: state.productModel
+                                            .productDataModel![index].productId,
+                                        image: state.productModel
+                                            .productDataModel![index].thumb
+                                            .toString(),
+                                        name: state.productModel
+                                            .productDataModel![index].name
+                                            .toString(),
+                                        price: state.productModel
+                                            .productDataModel![index].priceFormat
+                                            .toString(),
+                                        quantityOffers: state
+                                            .productModel
+                                            .productDataModel![index]
+                                            .quantityOffers,
+                                        priceTax: state
+                                            .productModel
+                                            .productDataModel![index]
+                                            .priceExcludingTax
+                                            .toString(),
                                       );
                                     }),
                               ),
                             );
                           } else if (state is ProductErrorState) {
                             showToast(
-                                text: state.e.toString(), color: ToastColors.ERROR);
+                                text: state.e.toString(),
+                                color: ToastColors.ERROR);
                           }
                           return const CustomMainProductShimmer() /*SizedBox.shrink()*/;
                         },
                       ),
                     ),
                     //TODO : IMAGE
-                    CarouselSliderWidget(id: "8"),
+                    CarouselSliderWidget(id: "8", milliseconds: 6500),
                     // TODO : Best Seller
                     SizedBox(
                       height: 5.h,
@@ -241,37 +274,58 @@ class HomeTemplateScreen extends StatelessWidget{
                           if (state is ProductLoadingState) {
                             const CustomMainProductShimmer();
                           } else if (state is SuccessBestSellerProductState) {
-                            print("**${state.productModel.productDataModel!.length}");
+                            print(
+                                "**${state.productModel.productDataModel!.length}");
                             return Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 5.0.sp),
+                              padding: EdgeInsets.symmetric(horizontal: 5.0.sp),
                               child: SizedBox(
                                 height: 160.h,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     physics: const BouncingScrollPhysics(),
-                                    itemCount: state.productModel.productDataModel!.length,
+                                    itemCount: state
+                                        .productModel.productDataModel!.length,
                                     itemBuilder: (context, index) {
                                       return BuildItemProduct(
-                                        specail:state.productModel.productDataModel![index].special,
-                                        id: state.productModel.productDataModel![index].productId,
-                                        image: state.productModel.productDataModel![index].thumb.toString(),
-                                        name: state.productModel.productDataModel![index].name.toString(),
-                                        price: state.productModel.productDataModel![index].priceFormat.toString(),
-                                        quantityOffers: state.productModel.productDataModel![index].quantityOffers,
-                                        priceTax: state.productModel.productDataModel![index].priceExcludingTax.toString(),
+                                        specail: state.productModel
+                                            .productDataModel![index].special,
+                                        id: state.productModel
+                                            .productDataModel![index].productId,
+                                        image: state.productModel
+                                            .productDataModel![index].thumb
+                                            .toString(),
+                                        name: state.productModel
+                                            .productDataModel![index].name
+                                            .toString(),
+                                        price: state.productModel
+                                            .productDataModel![index].priceFormat
+                                            .toString(),
+                                        quantityOffers: state
+                                            .productModel
+                                            .productDataModel![index]
+                                            .quantityOffers,
+                                        priceTax: state
+                                            .productModel
+                                            .productDataModel![index]
+                                            .priceExcludingTax
+                                            .toString(),
                                       );
                                     }),
                               ),
                             );
                           } else if (state is ProductErrorState) {
                             print("ERROR : ${state.e.toString()}");
-                            showToast(text: state.e.toString(), color: ToastColors.ERROR);
+                            showToast(
+                                text: state.e.toString(),
+                                color: ToastColors.ERROR);
                           }
                           return const CustomMainProductShimmer();
                         },
                       ),
                     ),
-                    SizedBox(height: 15.sp,)
+                    SizedBox(
+                      height: 15.sp,
+                    )
                   ],
                 ),
               ),
@@ -282,4 +336,3 @@ class HomeTemplateScreen extends StatelessWidget{
     );
   }
 }
-
